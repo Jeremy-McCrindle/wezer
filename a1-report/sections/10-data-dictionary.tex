@@ -1,0 +1,31 @@
+\section{Data Dictionary}
+\label{sec:data-dictionary}
+
+\begin{table}[H]
+  \centering
+  \caption{Data dictionary.}
+  \label{tab:data-dictionary}
+  \small
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.24\linewidth}X@{}}
+    \toprule
+    \textbf{Term} & \textbf{Type} & \textbf{Definition} \\
+    \midrule
+    GUI Front End & WezTerm subsystem & Displays terminal content and receives user input through graphical windows. \\
+    Multiplexer & WezTerm subsystem & Coordinates windows, tabs, panes, and domains, routing requests between the GUI Front End and the relevant local or remote session. \\
+    Mux Client & WezTerm subsystem & Manages connections between the local application and multiplexing domains, sending input and receiving pane updates; for remote SSH domains, it communicates with the remote Mux Server. \\
+    Mux Server & WezTerm subsystem & Headless WezTerm instance that manages remote session state, including windows, tabs, panes, and their programs. \\
+    Configuration Engine & WezTerm subsystem & Evaluates Lua configuration and supplies runtime settings, key bindings, themes, and event-handling support to the GUI Front End and Multiplexer. \\
+    SSH Client & WezTerm subsystem & Establishes the authenticated, encrypted SSH connection used to reach a remote Mux Server. \\
+    SSH Server & External system & The remote \texttt{sshd} service that accepts SSH connections and authenticates users. \\
+    Terminal Emulation Core & WezTerm subsystem & Interprets terminal output, including escape sequences, and updates a pane's logical screen state. \\
+    PTY & Operating-system interface & Pseudo-terminal interface that carries input and output bytes between WezTerm and a shell or other program. \\
+    Shell & External program & Command-line program running in a PTY that receives commands and produces terminal output. \\
+    Domain & Session/execution context & Determines where a pane's program runs; panes belong to a domain, which may be local or remote. \\
+    SSH multiplexing domain & Remote domain type & SSH domain that connects to a remote Mux Server, allowing its panes to keep running independently of the local GUI connection. \\
+    Pane & User-interface element & A terminal area within a tab. \\
+    Tab & User-interface element & A group of one or more panes within a WezTerm window. \\
+    Window & User-interface element & A top-level graphical window that can contain tabs and panes. \\
+    predicted echo & Latency feature & A local prediction of typed input, displayed to reduce perceived delay during slower remote sessions. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}

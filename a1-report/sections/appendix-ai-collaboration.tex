@@ -1,0 +1,85 @@
+\section{AI Collaboration Report}
+\label{sec:ai-report}
+
+\subsection{AI Member Profile and Selection Process}
+\label{sec:ai-profile}
+
+For this assignment, our group used ChatGPT 5.6 Terra and ChatGPT 5.6 Sol as AI teammates. We also used Prism to organize and format our report in LaTeX.
+
+Rather than comparing a wide range of AI tools, we decided to use ChatGPT because it was already available to our group and helped us work through technical information more efficiently. We used it to clarify unfamiliar terms, understand lengthy documentation, and identify areas worth investigating further. This was particularly helpful when reviewing WezTerm's changelog, as many entries mention specific source files and implementation details without explaining how they relate to the overall architecture.
+
+\subsection{Tasks Assigned to the AI Teammate}
+\label{sec:ai-tasks}
+
+We used ChatGPT for a few focused tasks:
+\begin{itemize}
+
+  \item \textbf{Reviewing the changelog:} We used ChatGPT to identify changelog entries that could indicate significant architectural changes, particularly those related to multiplexing, remote domains, configuration, rendering, and terminal-state management.
+
+  \item \textbf{Clarifying technical terminology:} ChatGPT helped us understand complex changelog entries and source-code references before we verified the information against the original sources.
+
+  \item \textbf{Organizing and revising the report:} Group members used ChatGPT to draft and refine content for most sections, including the introduction, component descriptions, derivation process, system evolution, data dictionary, naming conventions, conclusion, and this appendix. We then combined the contributions, revised the wording, and fact-checked the final content as a group.
+
+  \item \textbf{Report formatting:} We used Prism to organize the report and format it in LaTeX.
+\end{itemize}
+
+\subsection{Interaction Protocol and Prompting Strategy}
+\label{sec:ai-protocol}
+
+We used ChatGPT to support our research rather than make decisions for us. We asked specific questions to identify areas worth exploring and better understand unfamiliar concepts. Its responses helped guide our further research, but the group made the final decisions about what to include in the report after verifying the information against the original WezTerm sources.
+
+\subsection{Collaboration Workflow and Example Prompt}
+\label{sec:ai-workflow}
+
+Several group members used ChatGPT throughout the project, each for different tasks. One member used it to research the local-pane use case and make the sequence diagram explanation clearer. Another used it to go through the lengthy WezTerm changelog and identify entries that could reflect significant architectural changes. Others used it to understand unfamiliar terminology, keep component names consistent, and refine the wording of their sections. In each case, the group member was responsible for deciding what information to include and reviewing the final content.
+
+One of the prompts used for the changelog review was:
+
+\begin{quote}
+\small
+``Read this WezTerm changelog and identify the parts that show important architectural changes. Focus on multiplexing, remote domains, configuration, rendering, and terminal-state management. For each possible change, explain why it could matter at a conceptual architecture level.''
+\end{quote}
+
+We used ChatGPT as a starting point for research rather than treating its responses as evidence on their own. Whenever it highlighted a changelog entry or explained an unfamiliar technical term, the group member responsible for that section checked the original WezTerm documentation, source repository, or changelog entry. We only included findings that were relevant to the report's focus on conceptual architecture, and we cited the original WezTerm sources in the reference list.
+
+The changelog review showed how ChatGPT could help with research by narrowing a large number of entries down to potential changes involving the multiplexer, domains, and other system components. However, some of its suggestions were too focused on implementation details to be useful in a conceptual architecture report. The group reviewed these entries and either left them out or reframed them around changes to component responsibilities, interfaces, and major subsystems.
+
+ChatGPT fit these tasks because it helped us sort through lengthy documentation and clarify unfamiliar terms, while the group retained responsibility for analyzing the evidence. Our initial, broad questions became more focused prompts about specific WezTerm areas, with requests for conceptual rather than implementation-level explanations. The member responsible for each section checked every usable claim against the original documentation or source material, and another group member reviewed the wording and component names before inclusion.
+
+\subsection{Validation and Quality Control Procedures}
+\label{sec:ai-validation}
+
+We used AI suggestions and explanations as a starting point rather than accepting them without review. The group verified claims using the original WezTerm documentation and source code, chose which sources to cite, and made the final decisions about the architecture, diagrams, citations, and report content.
+
+Once the PDF was generated, we reviewed the layout, figure and table placement, headings, references, and overall formatting. We fixed any issues we found before exporting the final version.
+
+\subsection{Quantitative Contribution to the Final Deliverable}
+\label{sec:ai-contribution}
+
+We estimate that AI was responsible for about 15\% of the final report. It helped us narrow down research topics, understand technical concepts, draft and revise sections, and format the report in LaTeX. The group handled the rest, including choosing and verifying sources, developing and reviewing diagrams, making architectural decisions, and editing the final version.
+
+\begin{table}[!htbp]
+  \centering
+  \caption{Estimated AI contribution by area.}
+  \label{tab:ai-contribution}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.32\linewidth}>{\centering\arraybackslash}p{0.19\linewidth}X@{}}
+    \toprule
+    \textbf{Area} & \textbf{Estimated AI contribution} & \textbf{Human work completed} \\
+    \midrule
+    Finding potentially relevant changelog entries & 5\% & Reading original entries and deciding which changes mattered. \\
+    Clarifying technical concepts & 3\% & Checking explanations against official documentation and source material. \\
+    Organizing or revising wording across report sections & 5\% & Editing, integrating, and approving the final text. \\
+    LaTeX/report formatting support through Prism & 2\% & Reviewing the PDF and correcting formatting issues. \\
+    \textbf{Overall contribution} & \textbf{15\%} & Final architecture, diagrams, citations, and decisions remained the group's work. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Reflection on Human--AI Team Dynamics}
+\label{sec:ai-reflection}
+
+Using AI helped us save time while going through a large amount of documentation. It made it easier to find changelog entries worth looking into and understand technical concepts that were unfamiliar to us. It also gave group members a starting point when they were unsure which sources or parts of the architecture to focus on.
+
+However, AI also created some extra work. We had to verify its suggestions against the original documentation, determine which changes were relevant to our conceptual architecture, and make sure its explanations did not claim more than the sources supported. We also needed to fix some formatting issues after using Prism.
+
+Overall, we learned that AI is most useful as a tool to support our work rather than replace our own judgment. It helped us find, organize, and understand information, but deciding which components belonged in the architecture and which claims were supported by the evidence was still our responsibility. Ultimately, the group reviewed the sources and made the final decisions about what to include in the report.

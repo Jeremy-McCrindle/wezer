@@ -1,0 +1,21 @@
+\section{External Interfaces}
+\label{sec:external-interfaces}
+
+The main interfaces between WezTerm and systems outside its core architecture are summarized in Table~\ref{tab:external-interfaces}. These interfaces support remote multiplexing, local process execution, and user customization \cite{multiplexing}--\cite{update-status}.
+
+\begin{table}[!htbp]
+  \centering
+  \caption{External interfaces of WezTerm.}
+  \label{tab:external-interfaces}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.20\linewidth}X@{}}
+    \toprule
+    \textbf{Interface} & \textbf{Direction relative to WezTerm} & \textbf{Information carried} \\
+    \midrule
+    Remote SSH Server & Bidirectional & SSH authentication information and encrypted transport for remote-domain attachment requests, pane updates, and user input \cite{ssh,sshdomain}. \\
+    Operating-System PTY Interface & Bidirectional & Input bytes are sent to the shell or program; output bytes and process-status information return to WezTerm for terminal processing \cite{mux-api,term-crate}. \\
+    Shell or Other Program & Bidirectional, through the PTY & Commands from the user are interpreted and executed; terminal output is returned as byte streams \cite{multiplexing,term-crate}. \\
+    Lua Configuration and Event Handlers & Bidirectional & User configuration supplies settings, key bindings, and event handlers; WezTerm invokes registered handlers when supported events occur \cite{event-registration,update-status}. \\
+    Local Windowing and Graphics System & Bidirectional & Keyboard, mouse, and window events enter through the GUI Front End; rendered terminal content is displayed through the operating system's graphical interfaces \cite{gui-crate}. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}

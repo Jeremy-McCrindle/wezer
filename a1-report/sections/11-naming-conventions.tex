@@ -1,0 +1,24 @@
+\section{Naming Conventions}
+\label{sec:naming-conventions}
+
+To keep the report and diagrams consistent, we use the following naming conventions:
+
+\begin{table}[!htbp]
+  \centering
+  \caption{Naming conventions and abbreviations.}
+  \label{tab:naming-conventions}
+  \begin{tabularx}{\linewidth}{@{}p{0.30\linewidth}X@{}}
+    \toprule
+    \textbf{Convention} & \textbf{Meaning} \\
+    \midrule
+    WezTerm & Always capitalize the product name as \textit{WezTerm}. \\
+    Component names & Use title case for \textit{GUI Front End}, \textit{Multiplexer}, \textit{Mux Client}, \textit{Mux Server}, \textit{SSH Client}, and \textit{Terminal Emulation Core}. \\
+    Mux & Use \textit{Mux} only in the names \textit{Mux Client} and \textit{Mux Server}; call the coordinating subsystem the \textit{Multiplexer}. \\
+    Abbreviations & Capitalize \textit{GUI} (Graphical User Interface), \textit{SSH} (Secure Shell), \textit{PTY} (pseudo-terminal), and \textit{OS} (Operating System). \\
+    External participants & In sequence diagrams, mark non-WezTerm participants with the UML stereotype \texttt{\guillemotleft{}external\guillemotright{}}, as for the Shell and SSH Server. In prose, identify them as external when relevant. \\
+    Generic interface terms & Keep \textit{window}, \textit{tab}, \textit{pane}, \textit{domain}, and \textit{session} lowercase except at the start of a sentence. \\
+    Dependency arrows & Solid arrows in the dependency diagram point from a component to a component it depends on; arrow labels state the dependency or flow. \\
+    Sequence messages & Use concise, action-oriented lowercase labels, such as \textit{attach domain}, \textit{push changed lines}, and \textit{repaint changed lines}. Preserve capitalization for API or event identifiers such as \texttt{DetachDomain} and \texttt{PaneOutput}. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}

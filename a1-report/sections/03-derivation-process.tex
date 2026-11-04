@@ -1,0 +1,16 @@
+\section{Derivation Process}
+\label{sec:derivation}
+
+\subsection{Derivation Process}
+\label{sec:derivation-steps}
+
+To begin learning about WezTerm, we first started with its official documentation and website \cite{wezterm-docs} to build a foundational understanding of its core capabilities as a GPU-accelerated terminal emulator and software multiplexer. This gave us insight into its primary features, such as its reliance on Rust for performance, its use of Lua for configuration, and its built-in SSH multiplexing capabilities.
+
+To further understand the architecture of WezTerm and identify how these features operate under the hood, we analyzed specific user scenarios. We focused heavily on the SSH multiplexing use cases---specifically attaching to a remote host, sending keyboard input and receiving output, and ending a session via detachment or network loss. Tracing these key user actions allowed us to map out exactly what happens when a user interacts with the terminal.
+
+To help us create an accurate diagram of the conceptual architecture, we then consulted the official WezTerm GitHub repository. By examining the Rust monorepo structure, we were able to identify the strict boundaries between specific crates (such as \texttt{wezterm-gui} for rendering, \texttt{mux} for routing, and \texttt{term} for state management). Cross-referencing the repository's structure with the official documentation gave us a clear picture of how WezTerm isolates local presentation from remote session state. 
+
+Based on our knowledge of these components and their dependencies, we constructed sequence diagrams that detailed the control flow for remote operations. Finally, we derived our conceptual architecture (box-and-arrow) diagram directly from the components identified in those sequence diagrams. By maintaining strict naming conventions across both the use cases and the repository research, we ensured that our diagrams, component definitions, and written explanations remain consistent throughout the report.
+
+
+

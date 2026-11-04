@@ -1,0 +1,10 @@
+\section{Conclusions}
+\label{sec:conclusions}
+
+This report examined how WezTerm supports remote SSH multiplexing sessions through its conceptual architecture. We found that the system separates the GUI from the components that manage sessions, remote connections, and terminal state. Because of this separation, users can work with local and remote panes at the same time, while remote panes can continue running independently of the local window.
+
+The diagrams show that user input and terminal output move through several components. The GUI Front End handles interaction with the user, while the Multiplexer and Mux Client direct requests to the appropriate session. For remote work, the SSH Client connects to the Mux Server, which manages the remote session and works with the Terminal Emulation Core and PTY to process terminal input and output.
+
+We also identified the client-server and implicit invocation as important architectural styles in WezTerm. These styles help make the system flexible and customizable, but they also introduce tradeoffs, including network delay, compatibility requirements, and the need to manage event handlers carefully.
+
+Overall, WezTerm has a well-separated architecture that supports both regular terminal use and a more advanced remote workflows. Future work could compare this conceptual architecture with WezTerm’s source code to see how closely the implementation matches the model presented in this report.

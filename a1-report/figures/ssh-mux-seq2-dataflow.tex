@@ -1,0 +1,143 @@
+% Generated from ssh-mux/diagrams/seq2-dataflow.puml by PlantUML and tools/plantuml_tikz.py;
+% edit the .puml file, not this one.
+\definecolor{plantucolor0000}{RGB}{247,247,247}%
+\definecolor{plantucolor0001}{RGB}{24,24,24}%
+\definecolor{plantucolor0002}{RGB}{0,0,0}%
+\definecolor{plantucolor0003}{RGB}{51,51,51}%
+\definecolor{plantucolor0004}{RGB}{255,255,255}%
+\definecolor{plantucolor0005}{RGB}{255,255,255}%
+\definecolor{plantucolor0006}{RGB}{238,243,250}%
+\definecolor{plantucolor0007}{RGB}{244,244,244}%
+\definecolor{plantucolor0008}{RGB}{85,85,85}%
+\definecolor{plantucolor0009}{RGB}{250,250,250}%
+\definecolor{plantucolor0010}{RGB}{153,153,153}%
+\begin{tikzpicture}[yscale=-1, every node/.append style={text height=0.905em, text depth=0.212em}
+,pstyle0/.style={color=plantucolor0001,fill=plantucolor0000,line width=0.5pt}
+,pstyle1/.style={color=plantucolor0003,line width=1.5pt}
+,pstyle2/.style={color=plantucolor0004,line width=0.0pt}
+,pstyle3/.style={color=plantucolor0001,line width=0.5pt,dash pattern=on 5.0pt off 5.0pt}
+,pstyle4/.style={color=plantucolor0001,fill=white,line width=1.0pt}
+,pstyle7/.style={color=plantucolor0003,fill=plantucolor0006,line width=0.5pt}
+,pstyle8/.style={color=plantucolor0003,fill=plantucolor0003,line width=1.0pt}
+,pstyle9/.style={color=plantucolor0003,line width=1.0pt}
+]
+\draw[pstyle0] (108.7562pt,11pt) rectangle (440.7562pt,597pt);
+\node at (251.2094pt,11pt)[below right,color=black,inner sep=0]{\textbf{Local host}};
+\draw[pstyle0] (485.4656pt,11pt) rectangle (891.9344pt,597pt);
+\node at (659.0687pt,11pt)[below right,color=black,inner sep=0]{\textbf{Remote host}};
+\draw[pstyle1] (136.1375pt,220pt) rectangle (421.2813pt,293pt);
+\draw[pstyle2] (21.1188pt,97pt) rectangle (29.1188pt,591pt);
+\draw[pstyle3] (24.6188pt,97pt) -- (24.6188pt,591pt);
+\draw[pstyle2] (148.6375pt,97pt) rectangle (156.6375pt,591pt);
+\draw[pstyle3] (152.1375pt,97pt) -- (152.1375pt,591pt);
+\draw[pstyle4] (147.1375pt,122pt) rectangle (157.1375pt,307pt);
+\draw[pstyle4] (147.1375pt,548pt) rectangle (157.1375pt,573pt);
+\draw[pstyle2] (267.5438pt,97pt) rectangle (275.5438pt,591pt);
+\draw[pstyle3] (271.0438pt,97pt) -- (271.0438pt,591pt);
+\draw[pstyle4] (266.0438pt,147pt) rectangle (276.0438pt,307pt);
+\draw[pstyle4] (266.0438pt,523pt) rectangle (276.0438pt,548pt);
+\draw[pstyle2] (401.7813pt,97pt) rectangle (409.7813pt,591pt);
+\draw[pstyle3] (405.2813pt,97pt) -- (405.2813pt,591pt);
+\draw[pstyle4] (400.2813pt,172pt) rectangle (410.2813pt,307pt);
+\draw[pstyle4] (400.2813pt,487pt) rectangle (410.2813pt,523pt);
+\draw[pstyle2] (519.5375pt,97pt) rectangle (527.5375pt,591pt);
+\draw[pstyle3] (523.0375pt,97pt) -- (523.0375pt,591pt);
+\draw[pstyle4] (518.0375pt,307pt) rectangle (528.0375pt,324pt);
+\draw[pstyle2] (610.1563pt,97pt) rectangle (618.1563pt,591pt);
+\draw[pstyle3] (613.6563pt,97pt) -- (613.6563pt,591pt);
+\draw[pstyle2] (735.6125pt,97pt) rectangle (743.6125pt,591pt);
+\draw[pstyle3] (739.1125pt,97pt) -- (739.1125pt,591pt);
+\draw[pstyle4] (734.1125pt,399pt) rectangle (744.1125pt,462pt);
+\draw[pstyle2] (851.7562pt,97pt) rectangle (859.7562pt,591pt);
+\draw[pstyle3] (855.2562pt,97pt) -- (855.2562pt,591pt);
+\node at (10pt,86pt)[below right,color=black,inner sep=0]{User};
+\draw[color=plantucolor0003,fill=white,line width=0.5pt] (24.6188pt,34.5pt) ellipse (8pt and 8pt);
+\draw[color=plantucolor0003,line width=0.5pt] (24.6188pt,42.5pt) -- (24.6188pt,69.5pt)(11.6187pt,50.5pt) -- (37.6188pt,50.5pt)(24.6188pt,69.5pt) -- (11.6187pt,84.5pt)(24.6188pt,69.5pt) -- (37.6188pt,84.5pt);
+\draw[pstyle7] (112.7562pt,76pt) arc (180:270:5pt) -- (117.7562pt,71pt) -- (186.5188pt,71pt) arc (270:360:5pt) -- (191.5188pt,76pt) -- (191.5188pt,91pt) arc (0:90:5pt) -- (186.5188pt,96pt) -- (117.7562pt,96pt) arc (90:180:5pt) -- (112.7562pt,91pt) -- cycle;
+\node at (119.7562pt,78pt)[below right,color=black,inner sep=0]{GUI Front End};
+\draw[pstyle7] (237.4375pt,76pt) arc (180:270:5pt) -- (242.4375pt,71pt) -- (299.65pt,71pt) arc (270:360:5pt) -- (304.65pt,76pt) -- (304.65pt,91pt) arc (0:90:5pt) -- (299.65pt,96pt) -- (242.4375pt,96pt) arc (90:180:5pt) -- (237.4375pt,91pt) -- cycle;
+\node at (244.4375pt,78pt)[below right,color=black,inner sep=0]{Multiplexer};
+\draw[pstyle7] (373.8063pt,76pt) arc (180:270:5pt) -- (378.8063pt,71pt) -- (431.7562pt,71pt) arc (270:360:5pt) -- (436.7562pt,76pt) -- (436.7562pt,91pt) arc (0:90:5pt) -- (431.7562pt,96pt) -- (378.8063pt,96pt) arc (90:180:5pt) -- (373.8063pt,91pt) -- cycle;
+\node at (380.8063pt,78pt)[below right,color=black,inner sep=0]{Mux Client};
+\draw[pstyle7] (489.4656pt,76pt) arc (180:270:5pt) -- (494.4656pt,71pt) -- (551.6094pt,71pt) arc (270:360:5pt) -- (556.6094pt,76pt) -- (556.6094pt,91pt) arc (0:90:5pt) -- (551.6094pt,96pt) -- (494.4656pt,96pt) arc (90:180:5pt) -- (489.4656pt,91pt) -- cycle;
+\node at (496.4656pt,78pt)[below right,color=black,inner sep=0]{Mux Server};
+\draw[pstyle7] (595.9313pt,76pt) arc (180:270:5pt) -- (600.9313pt,71pt) -- (626.3813pt,71pt) arc (270:360:5pt) -- (631.3813pt,76pt) -- (631.3813pt,91pt) arc (0:90:5pt) -- (626.3813pt,96pt) -- (600.9313pt,96pt) arc (90:180:5pt) -- (595.9313pt,91pt) -- cycle;
+\node at (602.9313pt,78pt)[below right,color=black,inner sep=0]{PTY};
+\draw[pstyle7] (695.7094pt,65pt) arc (180:270:5pt) -- (700.7094pt,60pt) -- (777.5156pt,60pt) arc (270:360:5pt) -- (782.5156pt,65pt) -- (782.5156pt,91pt) arc (0:90:5pt) -- (777.5156pt,96pt) -- (700.7094pt,96pt) arc (90:180:5pt) -- (695.7094pt,91pt) -- cycle;
+\node at (717.6969pt,67pt)[below right,color=black,inner sep=0]{Terminal};
+\node at (702.7094pt,78pt)[below right,color=black,inner sep=0]{Emulation Core};
+\draw[pstyle7] (822.5781pt,65pt) arc (180:270:5pt) -- (827.5781pt,60pt) -- (882.9344pt,60pt) arc (270:360:5pt) -- (887.9344pt,65pt) -- (887.9344pt,91pt) arc (0:90:5pt) -- (882.9344pt,96pt) -- (827.5781pt,96pt) arc (90:180:5pt) -- (822.5781pt,91pt) -- cycle;
+\node at (842.9844pt,67pt)[below right,color=black,inner sep=0]{Shell};
+\node at (829.5781pt,78pt)[below right,color=black,inner sep=0]{\guillemotleft{}external\guillemotright{}};
+\draw[pstyle8] (135.1375pt,118pt) -- (145.1375pt,122pt) -- (135.1375pt,126pt) -- (139.1375pt,122pt) -- cycle;
+\draw[pstyle9] (24.6188pt,122pt) -- (141.1375pt,122pt);
+\node at (31.6188pt,109pt)[below right,color=black,inner sep=0]{key press};
+\draw[pstyle8] (254.0438pt,143pt) -- (264.0438pt,147pt) -- (254.0438pt,151pt) -- (258.0438pt,147pt) -- cycle;
+\draw[pstyle9] (157.1375pt,147pt) -- (260.0438pt,147pt);
+\node at (164.1375pt,134pt)[below right,color=black,inner sep=0]{key to active pane};
+\draw[pstyle8] (388.2813pt,168pt) -- (398.2813pt,172pt) -- (388.2813pt,176pt) -- (392.2813pt,172pt) -- cycle;
+\draw[pstyle9] (276.0438pt,172pt) -- (394.2813pt,172pt);
+\node at (283.0438pt,159pt)[below right,color=black,inner sep=0]{forward key};
+\draw[pstyle9] (521.0375pt,208pt) -- (511.0375pt,204pt);
+\draw[pstyle9] (521.0375pt,208pt) -- (511.0375pt,212pt);
+\draw[pstyle9] (410.2813pt,208pt) -- (522.0375pt,208pt);
+\node at (417.2813pt,184pt)[below right,color=black,inner sep=0]{key event (over SSH};
+\node at (417.2813pt,195pt)[below right,color=black,inner sep=0]{channel)};
+\draw[color=plantucolor0008,fill=plantucolor0007,line width=1.5pt] (136.1375pt,220pt) -- (196.4pt,220pt) -- (196.4pt,223pt) -- (186.4pt,233pt) -- (136.1375pt,233pt) -- (136.1375pt,220pt);
+\draw[pstyle1] (136.1375pt,220pt) rectangle (421.2813pt,293pt);
+\node at (151.1375pt,221pt)[below right,color=black,inner sep=0]{\textbf{opt}};
+\node at (211.4pt,222pt)[below right,color=black,inner sep=0]{[latency > local\_echo\_threshold\_ms]};
+\draw[pstyle9] (277.0438pt,260pt) -- (287.0438pt,256pt);
+\draw[pstyle9] (277.0438pt,260pt) -- (287.0438pt,264pt);
+\draw[pstyle9] (276.0438pt,260pt) -- (399.2813pt,260pt);
+\node at (293.0438pt,247pt)[below right,color=black,inner sep=0]{predicted echo};
+\draw[pstyle9] (158.1375pt,285pt) -- (168.1375pt,281pt);
+\draw[pstyle9] (158.1375pt,285pt) -- (168.1375pt,289pt);
+\draw[pstyle9] (157.1375pt,285pt) -- (265.0438pt,285pt);
+\node at (174.1375pt,272pt)[below right,color=black,inner sep=0]{notify PaneOutput};
+\draw[pstyle8] (601.6563pt,320pt) -- (611.6563pt,324pt) -- (601.6563pt,328pt) -- (605.6563pt,324pt) -- cycle;
+\draw[pstyle9] (528.0375pt,324pt) -- (607.6563pt,324pt);
+\node at (535.0375pt,311pt)[below right,color=black,inner sep=0]{write key bytes};
+\draw[pstyle9] (853.2562pt,349pt) -- (843.2562pt,345pt);
+\draw[pstyle9] (853.2562pt,349pt) -- (843.2562pt,353pt);
+\draw[pstyle9] (613.6563pt,349pt) -- (854.2562pt,349pt);
+\node at (620.6563pt,336pt)[below right,color=black,inner sep=0]{input};
+\draw[pstyle9] (614.6563pt,374pt) -- (624.6563pt,370pt);
+\draw[pstyle9] (614.6563pt,374pt) -- (624.6563pt,378pt);
+\draw[pstyle9] (613.6563pt,374pt) -- (854.2562pt,374pt);
+\node at (630.6563pt,361pt)[below right,color=black,inner sep=0]{output bytes};
+\draw[pstyle9] (732.1125pt,399pt) -- (722.1125pt,395pt);
+\draw[pstyle9] (732.1125pt,399pt) -- (722.1125pt,403pt);
+\draw[pstyle9] (613.6563pt,399pt) -- (733.1125pt,399pt);
+\node at (620.6563pt,386pt)[below right,color=black,inner sep=0]{bytes (reader thread)};
+\draw[pstyle9] (744.1125pt,424pt) -- (786.1125pt,424pt);
+\draw[pstyle9] (786.1125pt,424pt) -- (786.1125pt,437pt);
+\draw[pstyle9] (745.1125pt,437pt) -- (786.1125pt,437pt);
+\draw[pstyle8] (755.1125pt,433pt) -- (745.1125pt,437pt) -- (755.1125pt,441pt) -- (751.1125pt,437pt) -- cycle;
+\node at (751.1125pt,411pt)[below right,color=black,inner sep=0]{parse, update screen};
+\draw[pstyle9] (524.0375pt,462pt) -- (534.0375pt,458pt);
+\draw[pstyle9] (524.0375pt,462pt) -- (534.0375pt,466pt);
+\draw[pstyle9] (523.0375pt,462pt) -- (733.1125pt,462pt);
+\node at (540.0375pt,449pt)[below right,color=black,inner sep=0]{screen changed};
+\draw[pstyle9] (411.2813pt,487pt) -- (421.2813pt,483pt);
+\draw[pstyle9] (411.2813pt,487pt) -- (421.2813pt,491pt);
+\draw[pstyle9] (410.2813pt,487pt) -- (522.0375pt,487pt);
+\node at (427.2813pt,474pt)[below right,color=black,inner sep=0]{push changed lines};
+\draw[pstyle9] (277.0438pt,523pt) -- (287.0438pt,519pt);
+\draw[pstyle9] (277.0438pt,523pt) -- (287.0438pt,527pt);
+\draw[pstyle9] (276.0438pt,523pt) -- (399.2813pt,523pt);
+\node at (293.0438pt,499pt)[below right,color=black,inner sep=0]{pane output (replaces};
+\node at (293.0438pt,510pt)[below right,color=black,inner sep=0]{prediction)};
+\draw[pstyle9] (158.1375pt,548pt) -- (168.1375pt,544pt);
+\draw[pstyle9] (158.1375pt,548pt) -- (168.1375pt,552pt);
+\draw[pstyle9] (157.1375pt,548pt) -- (265.0438pt,548pt);
+\node at (174.1375pt,535pt)[below right,color=black,inner sep=0]{notify PaneOutput};
+\draw[pstyle8] (35.6188pt,569pt) -- (25.6188pt,573pt) -- (35.6188pt,577pt) -- (31.6188pt,573pt) -- cycle;
+\draw[pstyle9] (29.6188pt,573pt) -- (146.1375pt,573pt);
+\node at (41.6188pt,560pt)[below right,color=black,inner sep=0]{repaint changed lines};
+\draw[color=plantucolor0010,fill=plantucolor0009,line width=1.0pt] (428.2469pt,633pt) arc (180:270:15pt) -- (443.2469pt,618pt) -- (874.9344pt,618pt) arc (270:360:15pt) -- (889.9344pt,633pt) -- (889.9344pt,646pt) arc (0:90:15pt) -- (874.9344pt,661pt) -- (443.2469pt,661pt) arc (90:180:15pt) -- (428.2469pt,646pt) -- cycle;
+\node at (433.2469pt,623pt)[below right,color=black,inner sep=0,font=\fontsize{10}{11}\selectfont]{\textbf{Legend}};
+\node at (469.9594pt,623pt)[below right,color=black,inner sep=0,font=\fontsize{10}{11}\selectfont]{~Box + dashed lifeline: WezTerm component | \guillemotleft{}external\guillemotright{}: not WezTerm | grey frame: machine};
+\node at (433.2469pt,634pt)[below right,color=black,inner sep=0,font=\fontsize{10}{11}\selectfont]{Filled head: synchronous request | open head: asynchronous message or notification | dashed: reply};
+\node at (433.2469pt,645pt)[below right,color=black,inner sep=0,font=\fontsize{10}{11}\selectfont]{Frames: opt optional, alt alternatives, par concurrent, loop repeated};
+\end{tikzpicture}%

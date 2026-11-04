@@ -1,0 +1,18 @@
+\section{Introduction and Overview}
+\label{sec:introduction}
+
+\subsection{Purpose and Scope}
+\label{sec:purpose}
+
+WezTerm is a GPU-accelerated, cross-platform terminal emulator and software multiplexer written in Rust. It extends beyond a basic terminal window by allowing users to run local terminal sessions, connect to remote machines over SSH, organize workflows into tabs and panes, and customize terminal behavior via a dynamic Lua configuration engine. Although users interact with a single unified application, several distributed components work together to display output, process input, manage sessions, and communicate with remote hosts.
+
+In this report, we examine WezTerm at a conceptual level. This means that we focus on the main responsibilities and interactions of the system instead of looking closely at source-code details such as individual classes or functions. Our main area of focus is SSH multiplexing. This feature lets a user connect to a remote machine and return to remote panes later, even if the local GUI is closed or the network connection drops.
+
+We reviewed WezTerm’s documentation and traced key user actions to understand how the system is organized. We examined what happens when a user attaches to a remote machine, types in a remote pane, and later detaches or closes the session. From these scenarios, we identified the components involved and created sequence diagrams. We then used the same components in the dependency diagram so that the diagrams and written explanation match.
+
+Overall, we found that separating the GUI from session management gives WezTerm flexibility and supports persistent remote sessions. At the same time, this design requires the system to handle network delay, SSH compatibility, and communication between components carefully.
+
+\subsection{Report Organization}
+\label{sec:organization}
+
+The report begins by describing WezTerm’s main subsystems and their responsibilities, then explains how we derived the architecture from documentation and use cases. It presents the conceptual architecture and its architectural styles, followed by control and data flow, concurrency, system evolution, developer responsibilities, and external interfaces. It then analyzes key use cases and their sequence diagrams, defines the report’s terminology and naming conventions, and concludes with our findings, lessons learned, and possible future work.

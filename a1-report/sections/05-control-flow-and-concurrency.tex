@@ -1,0 +1,26 @@
+\section{Control Flow, Data Flow and Concurrency}
+\label{sec:control-data-concurrency}
+
+\subsection{Global Control and Data Flow}
+\label{sec:global-flow}
+
+The global control and data flow in WezTerm routes user input and visual output across local and remote boundaries, maintaining strict separation between interface rendering and session state \cite{multiplexing,sshdomain,term-crate}.
+
+In a local context, data flow begins when a user inputs a command into the GUI Front End. This input data is passed sequentially to the Multiplexer, which routes it to the local Mux Server, through the PTY, and finally to the Shell for execution. The control flow reverses for the output: the Shell pushes results back through the PTY to the local Mux Server, which forwards the raw data to the Terminal Emulation Core for state processing before the Multiplexer instructs the GUI Front End to render the updated terminal pane \cite{mux-api,term-crate}.
+
+For remote SSH sessions, the control and data flow extends across a network boundary. Attach requests are initiated by the GUI Front End and passed to the Multiplexer, which instructs the Mux Client and SSH Client to establish a proxy connection to a remote Mux Server. Once connected, keyboard input data travels from the GUI Front End through the Multiplexer to the Mux Client, which transmits the data across the SSH channel to the remote Mux Server. The Mux Server writes the input to the remote PTY and Shell \cite{multiplexing,sshdomain,client-source}.
+
+Output data generation on the remote host optimizes network bandwidth. As the remote Shell produces output, it is intercepted by the Terminal Emulation Core, which updates the internal screen matrix. The remote Mux Server then transmits only the changed lines of the screen back to the local Mux Client. To mitigate network latency during this remote data flow, the Mux Client implements a predictive control loop: if the delay exceeds a specific threshold, the Mux Client immediately generates a predicted echo of the typed character for the local GUI, replacing it only when the authoritative output data arrives from the remote server \cite{client-source,term-crate}.
+
+Additionally, control flow dictates that the remote Mux Server retains the state of the active panes. If the data flow is interrupted by a manual user detachment or an unexpected network disconnect, the local GUI simply drops the domain's panes while the remote Mux Server keeps the external programs running for future reattachment \cite{multiplexing,sshdomain}.
+
+\subsection{Concurrency}
+\label{sec:concurrency}
+
+WezTerm heavily relies on concurrent execution models to ensure the GUI Front End remains responsive, particularly when dealing with network latency and remote execution \cite{client-source,term-crate}.
+
+A primary example of concurrency is the remote attachment process. When a user selects a remote multiplexing domain, the GUI Front End passes the request asynchronously to the Multiplexer. As demonstrated by the parallel (\texttt{par}) fragment in the sequence diagrams, the user's existing local tabs continue to run and process data normally in the foreground while the SSH Client establishes the remote connection, verifies host keys, and prompts for passphrases in the background \cite{ssh,sshdomain,client-source}.
+
+Data transmission also utilizes asynchronous patterns. Once a remote session is active, the Mux Client sends keyboard input asynchronously to the remote Mux Server, ensuring that rapid typing does not block the local rendering thread while waiting for network traversal \cite{client-source}.
+
+Furthermore, WezTerm employs dedicated threading for continuous output processing. On the remote host, rather than blocking the Mux Server's main event loop, a dedicated reader thread is utilized to continuously capture output from the PTY. This thread passes the raw output directly to the Terminal Emulation Core for screen updates, ensuring that heavy remote data streams can be processed concurrently alongside incoming user inputs \cite{term-crate}.

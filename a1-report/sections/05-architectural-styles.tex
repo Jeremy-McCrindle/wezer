@@ -1,0 +1,42 @@
+\section{Architectural Styles and Alternatives}
+\label{sec:architectural-styles}
+
+\subsection{Client--Server Style}
+
+The first architectural style present in WezTerm is the client--server style, which can be seen through the interaction between the Mux Client and Mux Server. In this style, clients call on services provided by a server \cite{arch-styles}. In WezTerm, the Mux Client connects the GUI Front End to the Mux Server, allowing the GUI to access and interact with terminal sessions using Unix sockets, SSH, or TLS. WezTerm follows this model when connected to a Mux Server, while its default local mode does not require a separate server \cite{multiplexing}.
+
+This architectural style is justified by the separation of responsibilities between the GUI Front End and Mux Server. While the GUI Front End displays terminal sessions, the Mux Server manages the running programs within panes, tabs, windows, and workspaces. Since the Mux Server can operate without an attached GUI, these responsibilities remain separate \cite{mux-api}.
+
+The main benefit of the client--server style is flexibility, as users can access remote terminal sessions through their local interface. Separating responsibilities also allows developers to maintain and test the Mux Server independently of graphical behavior. However, changes to the interface between the Mux Client and Mux Server require coordination, and connected sessions introduce communication delays, authentication setup, and dependence on server availability. SSH multiplexing also requires compatible WezTerm software on a remote system. Although TLS reconnection allows sessions to resume after a connection interruption, it does not guarantee recovery if the Mux Server fails \cite{multiplexing}.
+
+\subsection{Implicit Invocation Style}
+
+The second architectural style present in WezTerm is the implicit invocation style, where a component announces an event and other components in the system register handlers that respond to it \cite{arch-styles}. WezTerm supports this through its Lua event interfaces. Handlers register through \texttt{wezterm.on}, and event dispatch invokes them when the corresponding event occurs \cite{event-registration}.
+
+This style is justified because the component announcing an event does not directly call each responding procedure. Instead, the event dispatch mechanism calls the procedures registered for that event \cite{arch-styles}. For example, WezTerm periodically emits \texttt{update-status}, passing the current window and active pane to a registered handler that can update the status display in the GUI Front End \cite{update-status}. Therefore, the implicit invocation style is characterized by the separation between announcing an event and invoking its registered response through event dispatch.
+
+The main benefits of the implicit invocation style are reuse and easier modification, since new handlers can register for existing events and responses can change without changing the event producer's interface \cite{arch-styles}. In WezTerm, this allows users to customize behavior through Lua configuration \cite{event-registration}. However, handlers can affect one another, making an event's overall behavior harder to follow. Although implicit invocation generally does not guarantee response order \cite{arch-styles}, WezTerm executes handlers in registration order \cite{event-registration}. Returning \texttt{false} stops later handlers and can suppress an event's default action, so testing must consider how handlers interact \cite{event-registration}. Slow \texttt{update-status} handlers also delay subsequent status updates, creating a tradeoff between customization and responsiveness \cite{update-status}.
+
+\subsection{Alternatives Considered and Rejected}
+
+The following alternatives were considered for this conceptual analysis.
+
+\begin{table}[!htbp]
+  \centering
+  \caption{Alternative conceptual styles and reasons for rejection.}
+  \label{tab:architectural-alternatives}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.18\linewidth}>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{Alternative} & \textbf{Potential Benefit} & \textbf{Reason for Rejection} \\
+    \midrule
+    GUI-bound session management & Managing terminal sessions within the GUI Front End makes local operation simpler, as it avoids the setup and communication overhead of a separate server. & This style ties terminal sessions to the GUI Front End, so it cannot explain how the Mux Server manages sessions without an attached GUI or how the Mux Client accesses remote sessions through the SSH Client \cite{multiplexing,mux-api}. \\
+    \addlinespace
+    Layered Style (Strict Layering) & Organizing components into clear levels and restricting their dependencies makes each layer's responsibilities clearer and can make the system easier to maintain and test \cite{arch-styles}. & Although layers can help describe dependencies between components, calls between neighboring layers alone do not fully explain event dispatch to registered Lua handlers or how the Mux Client connects to a separate Mux Server through the SSH Client \cite{event-registration,multiplexing}. \\
+    \addlinespace
+    Pipe-and-Filter (Pure) & Independent stages make stream processing easier to reuse, connect, and test individually \cite{arch-styles}. & Although a pipeline can describe how terminal output is processed, it does not fully explain how the Multiplexer and Mux Server manage workspaces, windows, tabs, and panes or how registered Lua handlers respond to events in the GUI Front End. These responsibilities involve managing sessions and responding to events, rather than simply transforming data streams \cite{mux-api,event-registration}. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\FloatBarrier
+These are rejected overall conceptual models, rather than rejected implementation choices. Layers and pipelines can still exist within WezTerm's subsystems.

@@ -1,0 +1,10 @@
+\section*{Abstract}
+\label{sec:abstract}
+
+WezTerm is a terminal emulator that lets users work with local and remote terminal sessions. It supports features such as tabs, panes, SSH connections, and persistent remote sessions. This report explains WezTerm’s conceptual architecture by looking at how its main parts work together when a user connects to a remote machine through an SSH multiplexing domain.
+
+The main components that are discussed are the GUI Front End, Multiplexer, Mux Client, SSH Client, Mux Server, Terminal Emulation Core, and pseudo-terminal interface. The GUI is responsible for displaying the terminal and receiving user input, while the multiplexer manages windows, tabs, and panes. For remote sessions, the Mux Client communicates with the Mux Server through SSH, allowing remote terminal sessions to continue running even if the user closes the GUI or temporarily loses their connection.
+
+This report also includes a dependency diagram and sequence diagrams that show how a user attaches to a remote host, sends commands to a remote pane, and ends or detaches from a session. It discusses two architectural styles used in WezTerm, client-server and implicit invocation. These styles support both remote session management and customizable event handling, but they also create challenges such as network delay, compatibility requirements, and event-handler coordination.
+
+Overall, WezTerm separates the user interface from terminal-session management in a way that makes remote sessions much more flexible and persistent.

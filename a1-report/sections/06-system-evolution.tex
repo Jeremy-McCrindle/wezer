@@ -1,0 +1,20 @@
+\section{System Evolution}
+\label{sec:evolution}
+
+Since 2019, WezTerm has evolved from a compact GUI terminal emulator into a much broader terminal platform supporting session multiplexing, remote connections, programmable configuration and multiple rendering backends \cite{initial-readme}.
+
+When version 1.0.0 of WezTerm launched in 2019, it had the goal of becoming an OS-independent model of a terminal screen with a reusable core that could run as both a textual terminal multiplexer and a GUI terminal emulator. From the  initial implementation, WezTerm was structured around a separation between the terminal model and its presentation layer. The terminal core processed terminal input and maintained the state of the virtual screen and scrollback, while a separate GUI layer interpreted that state and rendered it using OpenGL ES 2. The software used TOML for configuration, and was strongly oriented toward Linux \cite{initial-readme}.
+
+The system architecture experienced significant shifts in 2020, first transitioning from TOML to Lua configuration and scripting. This changed the role of the configuration layer from mainly providing static settings and data to providing a more programmable extension mechanism that users could customize without changing the source code significantly \cite{changelog-2020-apr,changelog-2020-oct}.
+
+Tab and pane support was released in 2020, with the multiplexer becoming an increasingly significant architectural layer. The multiplexer model became responsible for managing the terminal sessions independent of the GUI displaying them \cite{changelog-2020-oct,multiplexing}. The multiplexer was further developed with its own protocol and support for remote sessions, while SSH and TLS mechanisms extended the system beyond local processes. As the multiplexer evolved, WezTerm introduced “domains” in 2021 to separate the management of terminal sessions from where those sessions run. This allowed the same WezTerm windows, tabs, and panes to interact with sessions in different environments \cite{sshdomain,changelog-2022}.
+
+At the same time, Lua support expanded, gaining APIs, GUI events, multiplexer controls, and eventually access to domains. This configuration layer became an extension of the architecture, capable of interacting with other subsystems of WezTerm, rather than simply supplying configuration values \cite{event-registration,mux-api}.
+
+The rendering architecture became more flexible, moving away from depending only on OpenGL ES 2. The subsystem architecture became more independent of a single graphics API, instead changing to support multiple graphics backends. WebGPU support capable of using Metal, Vulkan and DirectX 12 was introduced in 2022, showing the move away from solely one API \cite{changelog-2022}. WebGPU was made the default frontend in 2024, but it was eventually reverted to OpenGL \cite{changelog-2024}.
+
+Thus, WezTerm progressed from a terminal emulator with a shared terminal model and GUI, into a modular and layered software with increasingly distinct parts. The major trend was a progression from a compact and centralized architectural design to a whole terminal platform where presentation, terminal state, session management, remote communication, domains, rendering, and user configuration are handled by individual subsystems. 
+
+
+
+

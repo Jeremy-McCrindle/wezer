@@ -1,0 +1,126 @@
+% CISC 322/326 Assignment 1: Conceptual Architecture report, Group WEZER.
+%Compile with pdfLaTeX or XeLaTeX (Overleaf default works). Each section lives in sections/.
+\documentclass[10pt,letterpaper]{article}
+
+% ---------- page and fonts ----------
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+\fi
+\usepackage[margin=1in]{geometry}
+\linespread{0.96}
+\usepackage{microtype}
+
+% ---------- figures, tables, references ----------
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[section,above]{placeins}% keep each figure and table inside its own section
+\usepackage{flafter}% a float never appears before the text that introduces it
+\usepackage{float}
+\usepackage{xurl}
+
+% ---------- diagrams ----------
+% UML diagrams are TikZ files in figures/. They were laid out with Helvetica-width text, so
+% they are drawn in Helvetica (pdfLaTeX) or its clone TeX Gyre Heros (XeLaTeX).
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,backgrounds,fit,positioning}
+\ifPDFTeX
+  \newcommand{\diagramfont}{\fontfamily{phv}\selectfont}
+\else
+  \usepackage{fontspec}
+  \newfontfamily\diagramfont{texgyreheros}[Extension=.otf, UprightFont=*-regular,
+    BoldFont=*-bold, ItalicFont=*-italic, BoldItalicFont=*-bolditalic]
+\fi
+% \diagram{<file>.tex}: a TikZ diagram from figures/, scaled to the text width.
+\newcommand{\diagram}[1]{\resizebox{\linewidth}{!}{\diagramfont\fontsize{11}{13}\selectfont\input{figures/#1}}}
+
+% ---------- headings ----------
+% One step above body text for sections, body size for subsections (as in KOMA-Script's
+% headings=normal, memoir's \reparticle and llncs); emphasis comes from bold and space.
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\normalsize\bfseries}
+\titleformat*{\subsubsection}{\normalsize\itshape}
+\titlespacing*{\section}{0pt}{2.5ex plus 1ex minus .2ex}{1ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{2ex plus 1ex minus .2ex}{0.6ex plus .2ex}
+
+\usepackage[hidelinks]{hyperref}% load last
+
+% ---------- report details ----------
+\newcommand{\reporttitle}{WezTerm Conceptual Architecture}
+\newcommand{\reportcourse}{CISC 322/326 Software Architecture}
+\newcommand{\reportassignment}{Assignment 1: Conceptual Architecture}
+\newcommand{\reportgroup}{Group: 6}
+\newcommand{\reportdate}{October 9, 2026}
+
+\newcommand{\authorentry}[2]{\begin{tabular}[t]{@{}c@{}}#1\\{\small\texttt{#2}}\end{tabular}}
+
+% Empty frame that holds a figure's place until the diagram is added.
+% Replace \figureslot{} with \includegraphics[width=\linewidth]{<file>}.
+\newcommand{\figureslot}[1][2.5in]{\framebox[0.9\linewidth]{\rule{0pt}{#1}}}
+
+\hypersetup{pdftitle={\reporttitle}, pdfauthor={\reportgroup}}
+
+\begin{document}
+
+% ---------- title, authors, abstract ----------
+\begin{center}
+  {\LARGE\bfseries \reporttitle\par}
+  \vspace{8pt}
+  {\large \reportcourse\par}
+  {\large \reportassignment\par}
+  \vspace{6pt}
+  \reportgroup\quad\textbullet\quad\reportdate\par
+  \vspace{14pt}
+  \begin{tabular}{@{}ccc@{}}
+    \authorentry{Aayan A. Kader}{23bbm12@queensu.ca} &
+    \authorentry{D'Artagnan Passailaigue}{23vtw1@queensu.ca} &
+    \authorentry{Jeremy McCrindle}{23bvj8@queensu.ca} \\ \noalign{\vspace{8pt}}
+    \authorentry{Nigel Groen}{nigel.groen@queensu.ca} &
+    \authorentry{Derek Goodman}{23kwk5@queensu.ca} &
+    \authorentry{Sydney Eichenberg}{22bl71@queensu.ca} \\ \noalign{\vspace{8pt}}
+    & \authorentry{Jasmine Qin}{jasmine.qin@queensu.ca} &
+  \end{tabular}
+\end{center}
+\vspace{6pt}
+
+\input{sections/00-abstract}
+
+
+
+% ---------- report body ----------
+\input{sections/01-introduction}
+\input{sections/03-derivation-process}
+\input{sections/04-conceptual-architecture}
+\input{sections/05-architectural-styles}
+\input{sections/05-control-flow-and-concurrency}
+\input{sections/06-system-evolution}
+\input{sections/07-developer-responsibilities}
+\input{sections/08-external-interfaces}
+\input{sections/09-use-cases}
+\input{sections/10-data-dictionary}
+\input{sections/11-naming-conventions}
+\input{sections/12-conclusions}
+\input{sections/13-lessons-learned}
+
+% ---------- references ----------
+\section{References}\label{sec:references}
+\begingroup
+\renewcommand{\section}[2]{}% the numbered heading above replaces the list's own heading
+\small
+\input{sections/references}
+
+\endgroup
+
+% ---------- AI collaboration report: the last two pages ----------
+\clearpage
+\appendix
+\input{sections/appendix-ai-collaboration}
+
+\end{document}

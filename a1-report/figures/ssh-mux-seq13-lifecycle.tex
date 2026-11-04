@@ -1,0 +1,208 @@
+% Generated from ssh-mux/diagrams/seq13-lifecycle.puml by PlantUML and tools/plantuml_tikz.py;
+% edit the .puml file, not this one.
+\definecolor{plantucolor0000}{RGB}{247,247,247}%
+\definecolor{plantucolor0001}{RGB}{24,24,24}%
+\definecolor{plantucolor0002}{RGB}{0,0,0}%
+\definecolor{plantucolor0003}{RGB}{51,51,51}%
+\definecolor{plantucolor0004}{RGB}{255,255,255}%
+\definecolor{plantucolor0005}{RGB}{255,255,255}%
+\definecolor{plantucolor0006}{RGB}{238,243,250}%
+\definecolor{plantucolor0007}{RGB}{238,238,238}%
+\definecolor{plantucolor0008}{RGB}{244,244,244}%
+\definecolor{plantucolor0009}{RGB}{85,85,85}%
+\definecolor{plantucolor0010}{RGB}{255,251,230}%
+\definecolor{plantucolor0011}{RGB}{184,166,96}%
+\definecolor{plantucolor0012}{RGB}{250,250,250}%
+\definecolor{plantucolor0013}{RGB}{153,153,153}%
+\begin{tikzpicture}[yscale=-1, every node/.append style={text height=0.905em, text depth=0.212em}
+,pstyle0/.style={color=plantucolor0001,fill=plantucolor0000,line width=0.5pt}
+,pstyle1/.style={color=plantucolor0003,line width=1.5pt}
+,pstyle2/.style={color=plantucolor0004,line width=0.0pt}
+,pstyle3/.style={color=plantucolor0001,line width=0.5pt,dash pattern=on 5.0pt off 5.0pt}
+,pstyle4/.style={color=plantucolor0001,fill=white,line width=1.0pt}
+,pstyle7/.style={color=plantucolor0003,fill=plantucolor0006,line width=0.5pt}
+,pstyle8/.style={color=plantucolor0007,fill=plantucolor0007,line width=1.0pt}
+,pstyle9/.style={color=black,line width=1.0pt}
+,pstyle10/.style={color=black,fill=plantucolor0007,line width=2.0pt}
+,pstyle11/.style={color=plantucolor0003,fill=plantucolor0003,line width=1.0pt}
+,pstyle12/.style={color=plantucolor0003,line width=1.0pt}
+,pstyle13/.style={color=plantucolor0009,fill=plantucolor0008,line width=1.5pt}
+,pstyle14/.style={color=plantucolor0003,line width=1.0pt,dash pattern=on 2.0pt off 2.0pt}
+,pstyle15/.style={color=plantucolor0011,fill=plantucolor0010,line width=0.5pt}
+]
+\draw[pstyle0] (155.3063pt,11pt) rectangle (648.0313pt,1161pt);
+\node at (378.1219pt,11pt)[below right,color=black,inner sep=0]{\textbf{Local host}};
+\draw[pstyle0] (715.5156pt,11pt) rectangle (979.8562pt,1161pt);
+\node at (818.0547pt,11pt)[below right,color=black,inner sep=0]{\textbf{Remote host}};
+\draw[pstyle1] (13pt,209pt) rectangle (960.6pt,728pt);
+\draw[pstyle1] (32pt,311pt) rectangle (627.5938pt,409pt);
+\draw[pstyle1] (738.05pt,452pt) rectangle (935.6pt,500pt);
+\draw[pstyle1] (32pt,785pt) rectangle (651.7813pt,992pt);
+\draw[pstyle2] (44.5pt,97pt) rectangle (52.5pt,1155pt);
+\draw[pstyle3] (48pt,97pt) -- (48pt,1155pt);
+\draw[pstyle2] (195.1875pt,97pt) rectangle (203.1875pt,1155pt);
+\draw[pstyle3] (198.6875pt,97pt) -- (198.6875pt,1155pt);
+\draw[pstyle4] (193.6875pt,172pt) rectangle (203.6875pt,742pt);
+\draw[pstyle4] (193.6875pt,825pt) rectangle (203.6875pt,1095pt);
+\draw[pstyle2] (344.0688pt,97pt) rectangle (352.0688pt,1155pt);
+\draw[pstyle3] (347.5688pt,97pt) -- (347.5688pt,1155pt);
+\draw[pstyle4] (342.5688pt,197pt) rectangle (352.5688pt,742pt);
+\draw[pstyle4] (342.5688pt,850pt) rectangle (352.5688pt,1059pt);
+\draw[pstyle2] (488.1375pt,97pt) rectangle (496.1375pt,1155pt);
+\draw[pstyle3] (491.6375pt,97pt) -- (491.6375pt,1155pt);
+\draw[pstyle4] (486.6375pt,249pt) rectangle (496.6375pt,617pt);
+\draw[pstyle4] (486.6375pt,875pt) rectangle (496.6375pt,1034pt);
+\draw[pstyle2] (608.0938pt,97pt) rectangle (616.0938pt,1155pt);
+\draw[pstyle3] (611.5938pt,97pt) -- (611.5938pt,1155pt);
+\draw[pstyle4] (606.5938pt,274pt) rectangle (616.5938pt,539pt);
+\draw[pstyle2] (750.55pt,97pt) rectangle (758.55pt,1155pt);
+\draw[pstyle3] (754.05pt,97pt) -- (754.05pt,1155pt);
+\draw[pstyle2] (900.9625pt,97pt) rectangle (908.9625pt,1155pt);
+\draw[pstyle3] (904.4625pt,97pt) -- (904.4625pt,1155pt);
+\draw[pstyle4] (899.4625pt,492pt) rectangle (909.4625pt,1155pt);
+\node at (33.3813pt,86pt)[below right,color=black,inner sep=0]{User};
+\draw[color=plantucolor0003,fill=white,line width=0.5pt] (48pt,34.5pt) ellipse (8pt and 8pt);
+\draw[color=plantucolor0003,line width=0.5pt] (48pt,42.5pt) -- (48pt,69.5pt)(35pt,50.5pt) -- (61pt,50.5pt)(48pt,69.5pt) -- (35pt,84.5pt)(48pt,69.5pt) -- (61pt,84.5pt);
+\draw[pstyle7] (159.3063pt,76pt) arc (180:270:5pt) -- (164.3063pt,71pt) -- (233.0688pt,71pt) arc (270:360:5pt) -- (238.0688pt,76pt) -- (238.0688pt,91pt) arc (0:90:5pt) -- (233.0688pt,96pt) -- (164.3063pt,96pt) arc (90:180:5pt) -- (159.3063pt,91pt) -- cycle;
+\node at (166.3063pt,78pt)[below right,color=black,inner sep=0]{GUI Front End};
+\draw[pstyle7] (313.9625pt,76pt) arc (180:270:5pt) -- (318.9625pt,71pt) -- (376.175pt,71pt) arc (270:360:5pt) -- (381.175pt,76pt) -- (381.175pt,91pt) arc (0:90:5pt) -- (376.175pt,96pt) -- (318.9625pt,96pt) arc (90:180:5pt) -- (313.9625pt,91pt) -- cycle;
+\node at (320.9625pt,78pt)[below right,color=black,inner sep=0]{Multiplexer};
+\draw[pstyle7] (460.1625pt,76pt) arc (180:270:5pt) -- (465.1625pt,71pt) -- (518.1125pt,71pt) arc (270:360:5pt) -- (523.1125pt,76pt) -- (523.1125pt,91pt) arc (0:90:5pt) -- (518.1125pt,96pt) -- (465.1625pt,96pt) arc (90:180:5pt) -- (460.1625pt,91pt) -- cycle;
+\node at (467.1625pt,78pt)[below right,color=black,inner sep=0]{Mux Client};
+\draw[pstyle7] (579.1563pt,76pt) arc (180:270:5pt) -- (584.1563pt,71pt) -- (639.0313pt,71pt) arc (270:360:5pt) -- (644.0313pt,76pt) -- (644.0313pt,91pt) arc (0:90:5pt) -- (639.0313pt,96pt) -- (584.1563pt,96pt) arc (90:180:5pt) -- (579.1563pt,91pt) -- cycle;
+\node at (586.1563pt,78pt)[below right,color=black,inner sep=0]{SSH Client};
+\draw[pstyle7] (719.5156pt,65pt) arc (180:270:5pt) -- (724.5156pt,60pt) -- (783.5844pt,60pt) arc (270:360:5pt) -- (788.5844pt,65pt) -- (788.5844pt,91pt) arc (0:90:5pt) -- (783.5844pt,96pt) -- (724.5156pt,96pt) arc (90:180:5pt) -- (719.5156pt,91pt) -- cycle;
+\node at (726.5156pt,67pt)[below right,color=black,inner sep=0]{SSH Server};
+\node at (728.3719pt,78pt)[below right,color=black,inner sep=0]{\guillemotleft{}external\guillemotright{}};
+\draw[pstyle7] (870.8906pt,76pt) arc (180:270:5pt) -- (875.8906pt,71pt) -- (933.0344pt,71pt) arc (270:360:5pt) -- (938.0344pt,76pt) -- (938.0344pt,91pt) arc (0:90:5pt) -- (933.0344pt,96pt) -- (875.8906pt,96pt) arc (90:180:5pt) -- (870.8906pt,91pt) -- cycle;
+\node at (877.8906pt,78pt)[below right,color=black,inner sep=0]{Mux Server};
+\draw[pstyle8] (10pt,123.5pt) rectangle (975.8563pt,126.5pt);
+\draw[pstyle9] (10pt,123.5pt) -- (975.8563pt,123.5pt);
+\draw[pstyle9] (10pt,126.5pt) -- (975.8563pt,126.5pt);
+\draw[pstyle10] (470.3563pt,115pt) rectangle (515.5pt,134pt);
+\node at (476.3563pt,119pt)[below right,color=black,inner sep=0]{\textbf{Attach~}};
+\draw[pstyle11] (181.6875pt,168pt) -- (191.6875pt,172pt) -- (181.6875pt,176pt) -- (185.6875pt,172pt) -- cycle;
+\draw[pstyle12] (48pt,172pt) -- (187.6875pt,172pt);
+\node at (55pt,148pt)[below right,color=black,inner sep=0]{pick "SSHMUX:" in};
+\node at (55pt,159pt)[below right,color=black,inner sep=0]{launcher};
+\draw[pstyle12] (340.5688pt,197pt) -- (330.5688pt,193pt);
+\draw[pstyle12] (340.5688pt,197pt) -- (330.5688pt,201pt);
+\draw[pstyle12] (203.6875pt,197pt) -- (341.5688pt,197pt);
+\node at (210.6875pt,184pt)[below right,color=black,inner sep=0]{attach domain};
+\draw[pstyle13] (13pt,209pt) -- (73.8813pt,209pt) -- (73.8813pt,212pt) -- (63.8813pt,222pt) -- (13pt,222pt) -- (13pt,209pt);
+\draw[pstyle1] (13pt,209pt) rectangle (960.6pt,728pt);
+\node at (28pt,210pt)[below right,color=black,inner sep=0]{\textbf{par}};
+\node at (88.8813pt,211pt)[below right,color=black,inner sep=0]{[attach runs as a background task]};
+\draw[pstyle11] (474.6375pt,245pt) -- (484.6375pt,249pt) -- (474.6375pt,253pt) -- (478.6375pt,249pt) -- cycle;
+\draw[pstyle12] (352.5688pt,249pt) -- (480.6375pt,249pt);
+\node at (359.5688pt,236pt)[below right,color=black,inner sep=0]{attach()};
+\draw[pstyle11] (594.5938pt,270pt) -- (604.5938pt,274pt) -- (594.5938pt,278pt) -- (598.5938pt,274pt) -- cycle;
+\draw[pstyle12] (496.6375pt,274pt) -- (600.5938pt,274pt);
+\node at (503.6375pt,261pt)[below right,color=black,inner sep=0]{open session};
+\draw[pstyle11] (742.05pt,295pt) -- (752.05pt,299pt) -- (742.05pt,303pt) -- (746.05pt,299pt) -- cycle;
+\draw[pstyle12] (616.5938pt,299pt) -- (748.05pt,299pt);
+\node at (623.5938pt,286pt)[below right,color=black,inner sep=0]{connect, authenticate};
+\draw[pstyle13] (32pt,311pt) -- (92.2625pt,311pt) -- (92.2625pt,314pt) -- (82.2625pt,324pt) -- (32pt,324pt) -- (32pt,311pt);
+\draw[pstyle1] (32pt,311pt) rectangle (627.5938pt,409pt);
+\node at (47pt,312pt)[below right,color=black,inner sep=0]{\textbf{opt}};
+\node at (107.2625pt,313pt)[below right,color=black,inner sep=0]{[unknown host key or secret needed]};
+\draw[pstyle11] (214.6875pt,347pt) -- (204.6875pt,351pt) -- (214.6875pt,355pt) -- (210.6875pt,351pt) -- cycle;
+\draw[pstyle12] (208.6875pt,351pt) -- (605.5938pt,351pt);
+\node at (220.6875pt,338pt)[below right,color=black,inner sep=0]{connection window};
+\draw[pstyle11] (59pt,372pt) -- (49pt,376pt) -- (59pt,380pt) -- (55pt,376pt) -- cycle;
+\draw[pstyle12] (53pt,376pt) -- (192.6875pt,376pt);
+\node at (65pt,363pt)[below right,color=black,inner sep=0]{prompt};
+\draw[pstyle11] (181.6875pt,397pt) -- (191.6875pt,401pt) -- (181.6875pt,405pt) -- (185.6875pt,401pt) -- cycle;
+\draw[pstyle14] (48pt,401pt) -- (187.6875pt,401pt);
+\node at (55pt,388pt)[below right,color=black,inner sep=0]{answer};
+\draw[pstyle11] (742.05pt,436pt) -- (752.05pt,440pt) -- (742.05pt,444pt) -- (746.05pt,440pt) -- cycle;
+\draw[pstyle12] (616.5938pt,440pt) -- (748.05pt,440pt);
+\node at (623.5938pt,427pt)[below right,color=black,inner sep=0]{run remote wezterm proxy};
+\draw[pstyle13] (738.05pt,452pt) -- (798.3125pt,452pt) -- (798.3125pt,455pt) -- (788.3125pt,465pt) -- (738.05pt,465pt) -- (738.05pt,452pt);
+\draw[pstyle1] (738.05pt,452pt) rectangle (935.6pt,500pt);
+\node at (753.05pt,453pt)[below right,color=black,inner sep=0]{\textbf{opt}};
+\node at (813.3125pt,454pt)[below right,color=black,inner sep=0]{[no mux server running]};
+\draw[pstyle12] (897.4625pt,492pt) -- (887.4625pt,488pt);
+\draw[pstyle12] (897.4625pt,492pt) -- (887.4625pt,496pt);
+\draw[pstyle12] (754.05pt,492pt) -- (898.4625pt,492pt);
+\node at (761.05pt,479pt)[below right,color=black,inner sep=0]{start wezterm-mux-server};
+\draw[pstyle11] (887.4625pt,527pt) -- (897.4625pt,531pt) -- (887.4625pt,535pt) -- (891.4625pt,531pt) -- cycle;
+\draw[pstyle12] (754.05pt,531pt) -- (893.4625pt,531pt);
+\node at (761.05pt,518pt)[below right,color=black,inner sep=0]{proxy joins Unix socket};
+\draw[pstyle11] (887.4625pt,552pt) -- (897.4625pt,556pt) -- (887.4625pt,560pt) -- (891.4625pt,556pt) -- cycle;
+\draw[pstyle12] (496.6375pt,556pt) -- (893.4625pt,556pt);
+\node at (503.6375pt,543pt)[below right,color=black,inner sep=0]{version check, list panes};
+\draw[pstyle11] (507.6375pt,588pt) -- (497.6375pt,592pt) -- (507.6375pt,596pt) -- (503.6375pt,592pt) -- cycle;
+\draw[pstyle14] (501.6375pt,592pt) -- (898.4625pt,592pt);
+\node at (513.6375pt,568pt)[below right,color=black,inner sep=0]{remote windows, tabs,};
+\node at (513.6375pt,579pt)[below right,color=black,inner sep=0]{panes};
+\draw[pstyle11] (363.5688pt,613pt) -- (353.5688pt,617pt) -- (363.5688pt,621pt) -- (359.5688pt,617pt) -- cycle;
+\draw[pstyle12] (357.5688pt,617pt) -- (485.6375pt,617pt);
+\node at (369.5688pt,604pt)[below right,color=black,inner sep=0]{add them as client panes};
+\draw[pstyle12] (204.6875pt,653pt) -- (214.6875pt,649pt);
+\draw[pstyle12] (204.6875pt,653pt) -- (214.6875pt,657pt);
+\draw[pstyle12] (203.6875pt,653pt) -- (341.5688pt,653pt);
+\node at (220.6875pt,629pt)[below right,color=black,inner sep=0]{notify};
+\node at (220.6875pt,640pt)[below right,color=black,inner sep=0]{TabAddedToWindow};
+\draw[pstyle11] (59pt,674pt) -- (49pt,678pt) -- (59pt,682pt) -- (55pt,678pt) -- cycle;
+\draw[pstyle12] (53pt,678pt) -- (192.6875pt,678pt);
+\node at (65pt,665pt)[below right,color=black,inner sep=0]{remote tab shown};
+\draw[pstyle14] (13pt,687pt) -- (960.6pt,687pt);
+\node at (18pt,689pt)[below right,color=black,inner sep=0]{[local panes, each on its own reader thread]};
+\draw[pstyle12] (204.6875pt,720pt) -- (214.6875pt,716pt);
+\draw[pstyle12] (204.6875pt,720pt) -- (214.6875pt,724pt);
+\draw[pstyle12] (203.6875pt,720pt) -- (341.5688pt,720pt);
+\node at (220.6875pt,707pt)[below right,color=black,inner sep=0]{notify PaneOutput (local)};
+\draw[pstyle8] (10pt,760.5pt) rectangle (975.8563pt,763.5pt);
+\draw[pstyle9] (10pt,760.5pt) -- (975.8563pt,760.5pt);
+\draw[pstyle9] (10pt,763.5pt) -- (975.8563pt,763.5pt);
+\draw[pstyle10] (468.5pt,752pt) rectangle (517.3563pt,771pt);
+\node at (474.5pt,756pt)[below right,color=black,inner sep=0]{\textbf{Detach~}};
+\draw[pstyle13] (32pt,785pt) -- (88.6188pt,785pt) -- (88.6188pt,788pt) -- (78.6188pt,798pt) -- (32pt,798pt) -- (32pt,785pt);
+\draw[pstyle1] (32pt,785pt) rectangle (651.7813pt,992pt);
+\node at (47pt,786pt)[below right,color=black,inner sep=0]{\textbf{alt}};
+\node at (103.6188pt,787pt)[below right,color=black,inner sep=0]{[user detaches (DetachDomain or closing the window)]};
+\draw[pstyle11] (181.6875pt,821pt) -- (191.6875pt,825pt) -- (181.6875pt,829pt) -- (185.6875pt,825pt) -- cycle;
+\draw[pstyle12] (48pt,825pt) -- (187.6875pt,825pt);
+\node at (55pt,812pt)[below right,color=black,inner sep=0]{DetachDomain};
+\draw[pstyle11] (330.5688pt,846pt) -- (340.5688pt,850pt) -- (330.5688pt,854pt) -- (334.5688pt,850pt) -- cycle;
+\draw[pstyle12] (203.6875pt,850pt) -- (336.5688pt,850pt);
+\node at (210.6875pt,837pt)[below right,color=black,inner sep=0]{detach domain};
+\draw[pstyle11] (474.6375pt,871pt) -- (484.6375pt,875pt) -- (474.6375pt,879pt) -- (478.6375pt,875pt) -- cycle;
+\draw[pstyle12] (352.5688pt,875pt) -- (480.6375pt,875pt);
+\node at (359.5688pt,862pt)[below right,color=black,inner sep=0]{detach()};
+\draw[pstyle11] (599.5938pt,896pt) -- (609.5938pt,900pt) -- (599.5938pt,904pt) -- (603.5938pt,900pt) -- cycle;
+\draw[pstyle12] (496.6375pt,900pt) -- (605.5938pt,900pt);
+\node at (503.6375pt,887pt)[below right,color=black,inner sep=0]{close session};
+\draw[pstyle14] (32pt,909pt) -- (651.7813pt,909pt);
+\node at (37pt,911pt)[below right,color=black,inner sep=0]{[network connection lost]};
+\draw[pstyle12] (497.6375pt,942pt) -- (507.6375pt,938pt);
+\draw[pstyle12] (497.6375pt,942pt) -- (507.6375pt,946pt);
+\draw[pstyle12] (496.6375pt,942pt) -- (610.5938pt,942pt);
+\node at (513.6375pt,929pt)[below right,color=black,inner sep=0]{read error or timeout};
+\draw[pstyle15] (501.6375pt,955pt) -- (501.6375pt,987pt) -- (630.6375pt,987pt) -- (630.6375pt,965pt) -- (620.6375pt,955pt) -- (501.6375pt,955pt);
+\draw[pstyle15] (620.6375pt,955pt) -- (620.6375pt,965pt) -- (630.6375pt,965pt) -- (620.6375pt,955pt);
+\node at (507.6375pt,960pt)[below right,color=black,inner sep=0]{no automatic reconnect};
+\node at (507.6375pt,971pt)[below right,color=black,inner sep=0]{for SSH domains};
+\draw[pstyle11] (363.5688pt,1030pt) -- (353.5688pt,1034pt) -- (363.5688pt,1038pt) -- (359.5688pt,1034pt) -- cycle;
+\draw[pstyle12] (357.5688pt,1034pt) -- (485.6375pt,1034pt);
+\node at (369.5688pt,1010pt)[below right,color=black,inner sep=0]{drop domain's panes};
+\node at (369.5688pt,1021pt)[below right,color=black,inner sep=0]{locally};
+\draw[pstyle12] (204.6875pt,1059pt) -- (214.6875pt,1055pt);
+\draw[pstyle12] (204.6875pt,1059pt) -- (214.6875pt,1063pt);
+\draw[pstyle12] (203.6875pt,1059pt) -- (341.5688pt,1059pt);
+\node at (220.6875pt,1046pt)[below right,color=black,inner sep=0]{notify PaneRemoved};
+\draw[pstyle11] (59pt,1091pt) -- (49pt,1095pt) -- (59pt,1099pt) -- (55pt,1095pt) -- cycle;
+\draw[pstyle12] (53pt,1095pt) -- (192.6875pt,1095pt);
+\node at (65pt,1071pt)[below right,color=black,inner sep=0]{remote tabs gone, local};
+\node at (65pt,1082pt)[below right,color=black,inner sep=0]{tabs stay};
+\draw[pstyle15] (838.0688pt,1108pt) -- (838.0688pt,1140pt) -- (970.0688pt,1140pt) -- (970.0688pt,1118pt) -- (960.0688pt,1108pt) -- (838.0688pt,1108pt);
+\draw[pstyle15] (960.0688pt,1108pt) -- (960.0688pt,1118pt) -- (970.0688pt,1118pt) -- (960.0688pt,1108pt);
+\node at (844.0688pt,1113pt)[below right,color=black,inner sep=0]{panes keep running};
+\node at (844.0688pt,1124pt)[below right,color=black,inner sep=0]{until the user re-attaches};
+\draw[color=plantucolor0013,fill=plantucolor0012,line width=1.0pt] (506.1688pt,1197pt) arc (180:270:15pt) -- (521.1688pt,1182pt) -- (952.8563pt,1182pt) arc (270:360:15pt) -- (967.8563pt,1197pt) -- (967.8563pt,1210pt) arc (0:90:15pt) -- (952.8563pt,1225pt) -- (521.1688pt,1225pt) arc (90:180:15pt) -- (506.1688pt,1210pt) -- cycle;
+\node at (511.1688pt,1187pt)[below right,color=black,inner sep=0,font=\fontsize{10}{11}\selectfont]{\textbf{Legend}};
+\node at (547.8813pt,1187pt)[below right,color=black,inner sep=0,font=\fontsize{10}{11}\selectfont]{~Box + dashed lifeline: WezTerm component | \guillemotleft{}external\guillemotright{}: not WezTerm | grey frame: machine};
+\node at (511.1688pt,1198pt)[below right,color=black,inner sep=0,font=\fontsize{10}{11}\selectfont]{Filled head: synchronous request | open head: asynchronous message or notification | dashed: reply};
+\node at (511.1688pt,1209pt)[below right,color=black,inner sep=0,font=\fontsize{10}{11}\selectfont]{Frames: opt optional, alt alternatives, par concurrent, loop repeated};
+\end{tikzpicture}%

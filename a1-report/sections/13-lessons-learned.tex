@@ -1,0 +1,8 @@
+\section{Lessons Learned}
+\label{sec:lessons-learned}
+
+This project showed us that starting with real user actions made the architecture much easier to understand. Looking at what happens when someone opens a local pane, connects to a remote machine, or types in a remote pane helped us see which components were actually involved. From there, it was easier to decide what belonged in our dependency diagram instead of trying to build the diagram from documentation alone.
+
+We also learned that small naming differences can become confusing very quickly. In our earlier drafts, terms like “Multiplexer,” “Mux Client,” and “Mux Server” were not always used in the same way. When we put the report together, we had to go back through the diagrams and text to make sure each name meant the same thing everywhere.
+
+Finally, we learned not to treat every changelog entry as an architectural change. Some entries were useful for understanding implementation details but did not change the overall structure of WezTerm. We had to read the original documentation and decide which findings were important enough to include in a conceptual architecture report.
