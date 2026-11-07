@@ -1,0 +1,41 @@
+\section{Use Cases and Sequence Diagrams}
+\label{sec:use-cases}
+
+\sectionnote{Owner: D'Artagnan Passailaigue. Target: 2.5 pages, including one use case diagram and two sequence diagrams. Rubric: Two use cases are presented in sequence diagrams and match the concrete architecture; The method calls in the two use cases refer to concrete methods.}
+
+\begin{requirements}
+  \item ``Great'' on these criteria means two use cases whose sequence diagrams match the components and dependencies of the concrete box-and-arrow diagram, with almost every edge labelled with a concrete method call.
+  \item Participants are boxes of the concrete architecture (Section~\ref{sec:concrete-diagram}), with identical names. External participants keep the \guillemotleft external\guillemotright{} stereotype from A1.
+  \item Every message between two participants follows a dependency in the concrete diagram. Check each sequence diagram against the concrete diagram before finalising it.
+  \item Label almost every edge with the method actually called at \pinnedcommit, written \texttt{Type::method()}, for example \texttt{Domain::attach()}, \texttt{Pane::key\_down()}, \texttt{Mux::add\_pane()} or \texttt{Mux::notify()}. Trace them with Understand's call graphs. Abstract labels from A1 such as ``attach domain'' or ``push changed lines'' no longer meet the rubric.
+  \item Each diagram has a legend and is explained in the text with numbered steps, as in A1.
+  \item Reuse the two A1 use cases so the change from the conceptual flow to the concrete one is visible, and say for each where the concrete flow differs from A1's diagram.
+\end{requirements}
+
+\subsection{Use Case Diagram}
+\label{sec:use-case-diagram}
+
+\begin{requirements}
+  \item One UML use case diagram showing the actors (the user, and any external systems such as the SSH Server) and the two use cases traced below, with a legend.
+  \item A1's use case diagram for SSH multiplexing (\texttt{a1-report/figures/ssh-mux-use-case.png}) can be the starting point.
+\end{requirements}
+
+\subsection{Use Case 1: Executing a Command in a Local Pane}
+\label{sec:use-case-1}
+
+\begin{requirements}
+  \item The scenario: the actor, the trigger and the outcome.
+  \item The participants, which are boxes of the concrete architecture.
+  \item The sequence diagram, its legend, and a numbered walkthrough naming each method call.
+  \item How the concrete flow differs from A1's Use Case~1, which routed a local pane through a ``local Mux Server''.
+\end{requirements}
+
+\subsection{Use Case 2: Sending Keyboard Input to a Remote Pane over SSH}
+\label{sec:use-case-2}
+
+\begin{requirements}
+  \item The scenario: the actor, the trigger and the outcome.
+  \item The participants, which are boxes of the concrete architecture, including the SSH Client and the Mux Server.
+  \item The sequence diagram, its legend, and a numbered walkthrough naming each method call, including the call that sends the key press across the connection and the call that delivers the changed lines back.
+  \item How the concrete flow differs from A1's diagrams for Use Case~2. If attaching to the remote host is the stronger example in the code, trace that instead and say why.
+\end{requirements}

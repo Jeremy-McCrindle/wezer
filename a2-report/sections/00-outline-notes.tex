@@ -1,0 +1,134 @@
+% Outline notes: planning pages printed before the title page while \outlinetrue is set.
+% They are not part of the report.
+\section*{Outline Notes}
+
+These pages, the italic line under each heading and every bulleted list are outline material. Each bullet is a requirement the section must meet. Write your prose below the list in your own section file and delete the list once the section is done. Setting \texttt{\textbackslash outlinefalse} in \texttt{main.tex} hides all of it at once.
+
+\subsection*{Who Writes What}
+
+Section files are numbered as in the group's work breakdown. The report itself numbers its sections from the Introduction, so the numbers below differ from the file numbers.
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.18\linewidth}>{\raggedright\arraybackslash}p{0.14\linewidth}>{\raggedright\arraybackslash}p{0.31\linewidth}@{}}
+  \toprule
+  \textbf{Section in the report} & \textbf{Owner} & \textbf{Target} & \textbf{File in \texttt{sections/} (\texttt{.tex})} \\
+  \midrule
+  Abstract & Sydney Eichenberg & 0.25 page & \texttt{01-abstract} \\
+  \ref{sec:introduction} Introduction and Project Overview & Sydney Eichenberg & 0.5 page & \texttt{02-introduction} \\
+  \ref{sec:data-dictionary} Data Dictionary and Naming Conventions & Everyone; Sydney checks & 0.5 page & \texttt{03-data-dictionary} \\
+  \ref{sec:conceptual} Conceptual Architecture & Jeremy McCrindle & 1.25 pages + box-and-arrow diagram & \texttt{04-conceptual-architecture} \\
+  \ref{sec:derivation} Architecture Derivation Process & Jeremy McCrindle & 1 page & \texttt{05-derivation-process} \\
+  \ref{sec:concrete} Concrete Architecture & Aayan A. Kader & 2.25 pages + redrawn diagrams & \texttt{06-concrete-architecture} \\
+  \ref{sec:reflexion} High-Level Reflexion Analysis & Jasmine Qin & 2 pages & \texttt{07-high-level-reflexion} \\
+  \ref{sec:subsystem} Second-Level Reflexion Analysis & Nigel Groen & 2.75 pages & \texttt{08-second-level-reflexion} \\
+  \ref{sec:use-cases} Use Cases and Sequence Diagrams & D'Artagnan Passailaigue & 2.5 pages & \texttt{09-use-cases} \\
+  \ref{sec:conclusions} Conclusions and Lessons Learned & Derek Goodman & 0.75 page & \texttt{11-conclusions-lessons-learned} \\
+  \ref{sec:references} References & Everyone; Sydney checks & 0.5--1 page & \texttt{12-references} \\
+  Appendix~\ref{sec:ai-report} AI Teammate Interaction and Impact & Derek Goodman & exactly 2 pages, last & \texttt{10-ai-collaboration} \\
+  \bottomrule
+\end{tabularx}
+\end{center}
+
+The breakdown lists the AI section as item 10, before the Conclusions and References. The course requires each report to end with its 2-page AI collaboration report, as A1 did, so it is printed last as Appendix~\ref{sec:ai-report} and keeps its file number.
+
+\subsection*{Schedule (Toronto Time)}
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.30\linewidth}X@{}}
+  \toprule
+  \textbf{Date} & \textbf{Milestone} \\
+  \midrule
+  Sat Nov 7 & First draft of every section \\
+  Mon Nov 9 & Review and edits done \\
+  Wed Nov 11 & Presentation ready \\
+  Fri Nov 13, 11:59pm & Report PDF and slides submitted on onQ; the slides contain the URL of the recorded video, which shows both presenters' faces \\
+  Sat Nov 14, 11:59pm & Peer review of every member, self included, on onQ \\
+  Tue Nov 17 to Thu Nov 19, 11:59pm & Report and slides posted on the group website, not before Nov 17 \\
+  Wed Nov 25, 11:59pm & Two anonymous 1-page reviews of other groups' videos (3 strengths, 3 improvements with suggestions), emailed to our TA \\
+  \bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection*{Highest-Priority Quantitative Requirements}
+
+\begin{center}
+\small
+\begin{tabular}{@{}ll@{}}
+  \toprule
+  \textbf{Requirement} & \textbf{Target} \\
+  \midrule
+  High-level conceptual architecture & about 10 components \\
+  Detailed subsystem architecture & at least 4 sub-components \\
+  Use cases & 2 \\
+  Sequence diagrams & 2 \\
+  Sequence diagram interactions & almost all labelled with concrete method calls \\
+  Reflexion analyses & 2 (high-level and second-level) \\
+  Git evidence & supports every divergence explained \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+The items most easily overlooked are the two reflexion analyses, git evidence for divergences, concrete method calls in the sequence diagrams, and a transparent account of the AI teammate's contribution.
+
+\subsection*{Where Each Rubric Criterion Is Answered}
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.24\linewidth}@{}}
+  \toprule
+  \textbf{Rubric criterion} & \textbf{Section} \\
+  \midrule
+  \multicolumn{2}{@{}l}{\textit{Quality of architecture}} \\
+  High-level concrete architecture as a box-and-arrow diagram, at the right level, each component and dependency discussed and linked to the reference architecture & \ref{sec:concrete} \\
+  Architecture derivation process explained & \ref{sec:derivation} \\
+  Inner architecture of one subsystem and its interactions, conceptual and concrete, at least 4 sub-components & \ref{sec:subsystem} \\
+  Two use cases in sequence diagrams that match the concrete architecture & \ref{sec:use-cases} \\
+  Method calls in the two use cases refer to concrete methods & \ref{sec:use-cases} \\
+  Reflexion analysis for the high-level architecture, based on facts from git & \ref{sec:reflexion} \\
+  Reflexion analysis for the chosen second-level architecture, based on facts from git & \ref{sec:subsystem} \\
+  Conceptual architecture (about 10 components) clearly referenced, with rationale for changes since A1 & \ref{sec:conceptual} \\
+  Lessons learned, adapted to the project & \ref{sec:conclusions} \\
+  \midrule
+  \multicolumn{2}{@{}l}{\textit{Quality of report presentation}} \\
+  Consistency (box names, legends, etc.) & Whole report; \ref{sec:data-dictionary} \\
+  Screenshots of Understand with readable fonts, edges and arrows, possibly redrawn & \ref{sec:concrete}, \ref{sec:subsystem} \\
+  Good subsystem layouts, easy to compare conceptual and concrete & \ref{sec:conceptual}--\ref{sec:subsystem} \\
+  Abstract gives a clear overview & Abstract \\
+  Good organization, within page limits & \ref{sec:introduction}; page targets \\
+  Diagrams and tables explained in the text; diagrams have legends & Every figure and table \\
+  References listed together and cited from the text & \ref{sec:references} \\
+  Interaction with the AI teammate (selection, tasks, protocol, prompting) & Appendix~\ref{sec:ai-report} \\
+  Quality and impact of the AI teammate (quality control, reflection, quantitative impact) & Appendix~\ref{sec:ai-report} \\
+  \bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection*{Rules for Everyone}
+
+\begin{itemize}[itemsep=1pt]
+  \item Write only in your own section file. Add terms to the Data Dictionary and entries to the References as you use them, since both are shared.
+  \item Use the component names in the Data Dictionary everywhere: diagrams, sequence diagrams and text.
+  \item Cite sources as \texttt{\textbackslash cite\{key\}}, with the entry added to \texttt{12-references.tex}. Copy any A1 entry you reuse from \texttt{../a1-report/sections/references.tex}.
+  \item Put figures in \texttt{figures/}, with file names starting with your section's file number (for example \texttt{06-concrete-understand.png}), so names do not collide.
+  \item Give every figure a legend, and refer to every figure and table in the text (``Figure~\textbackslash ref\{fig:...\} shows \ldots'').
+  \item Take every git fact (commit hash, author, date) from a clone checked out at \pinnedcommit, so it matches the snapshot Understand analyses.
+  \item Log every AI interaction (tool and version, prompt, what was kept, how it was checked) and send the logs to Derek for the AI appendix. The logs are submitted with the report.
+\end{itemize}
+
+\subsection*{Format and Open Questions}
+
+\begin{itemize}[itemsep=1pt]
+  \item The format follows our A1 report: 10pt, slightly tightened line spacing, Latin Modern, black only. The A1 guidelines asked for 12pt, single-spaced, at most 17 pages including the 2-page AI report. The page targets above total about 16.5 pages.
+  \item Not in hand yet: the detailed A2 statement that the onQ A2 page refers to, which may set the page limit and require sections the rubric does not list; and the reference architecture document on onQ, which Sections~\ref{sec:conceptual} and~\ref{sec:concrete} must link components to.
+\end{itemize}
+
+\subsection*{Understand Setup}
+
+\begin{enumerate}[itemsep=1pt]
+  \item Register for an Understand licence at \url{https://licensing.scitools.com/student} with a \texttt{@queensu.ca} address.
+  \item Run \texttt{git clone git@github.com:wezterm/wezterm.git}, then \texttt{git checkout 4fbd6b8e9} inside the clone.
+  \item Download \texttt{WezTerminal.und} (a zip) from the A2 page on onQ and unzip it inside the clone.
+  \item In Understand, choose File $>$ Open $>$ Project, select the \texttt{.und} file, and wait for the first analysis to finish.
+\end{enumerate}

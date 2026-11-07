@@ -1,0 +1,42 @@
+\section{High-Level Reflexion Analysis}
+\label{sec:reflexion}
+
+\sectionnote{Owner: Jasmine Qin. Target: 2 pages. Rubric: Detailed reflexion analysis for high-level architecture (for a given divergence, not all calls or messages have to be explained).}
+
+\begin{requirements}
+  \item ``Great'' on this criterion means a clear explanation of the reflexion analysis and a detailed discussion of the divergences between the conceptual and concrete architecture, based on facts obtained from git. The rubric marks down divergences that are not discussed in detail or that do not rely on actual facts from git.
+  \item Follow the procedure in Section~\ref{sec:reflexion-procedure} and refer to it rather than repeating it.
+\end{requirements}
+
+\subsection{Reflexion Model}
+\label{sec:reflexion-model}
+
+\begin{requirements}
+  \item One figure in the conceptual layout with every dependency marked as a convergence, divergence or absence by line style (black only, so it reads in greyscale), and a legend.
+  \item A summary of the counts: how many convergences, divergences and absences.
+\end{requirements}
+
+\subsection{Divergences}
+\label{sec:divergences}
+
+\begin{requirements}
+  \item One paragraph or subsection per divergence, each giving: the dependency (component A to component B); one representative example from the code (file, function, \texttt{Type::method()}); when and by whom it was introduced (commit hash, author, date, and commit message or pull request, from git); why, according to that history; and whether it is a reasonable design decision or architectural erosion.
+  \item Explain one or two representative calls per divergence, not every call.
+  \item Hypotheses to check first. Each crate's \texttt{Cargo.toml} at \pinnedcommit{} declares these crate-level dependencies. They are not yet confirmed in Understand, and Understand's graph is what the report must show:
+  \begin{itemize}[itemsep=1pt,topsep=1pt]
+    \item Reversed arrow: \texttt{wezterm-client} (Mux Client) depends on \texttt{mux} (Multiplexer), and \texttt{mux} does not depend on \texttt{wezterm-client}; A1 drew the Multiplexer depending on the Mux Client. \texttt{ClientDomain} in \texttt{wezterm-client/src/domain.rs} implements the \texttt{mux} crate's \texttt{Domain} trait.
+    \item Multiplexer to SSH Client: \texttt{mux} depends on \texttt{wezterm-ssh}, through \texttt{RemoteSshDomain} in \texttt{mux/src/ssh.rs}.
+    \item Multiplexer to PTY and to Terminal Emulation Core: \texttt{mux} depends on \texttt{portable-pty} (folder \texttt{pty}) and \texttt{wezterm-term} (folder \texttt{term}). \texttt{LocalPane} in \texttt{mux/src/localpane.rs} holds both the pane's \texttt{Terminal} and its \texttt{MasterPty}.
+    \item GUI Front End to Terminal Emulation Core, SSH Client, Mux Client and Mux Server: \texttt{wezterm-gui} depends on \texttt{wezterm-term}, \texttt{wezterm-ssh}, \texttt{wezterm-client} and \texttt{wezterm-mux-server-impl}, not only on \texttt{mux} and \texttt{config}.
+    \item Mux Server to Mux Client: \texttt{wezterm-mux-server-impl} depends on \texttt{wezterm-client}.
+    \item Configuration Engine to Terminal Emulation Core and SSH Client: \texttt{config} depends on \texttt{wezterm-term} and \texttt{wezterm-ssh}.
+  \end{itemize}
+\end{requirements}
+
+\subsection{Absences}
+\label{sec:absences}
+
+\begin{requirements}
+  \item One short paragraph per absence: the conceptual dependency with no counterpart in the code, and why (the dependency runs through another component, or the conceptual model was wrong).
+  \item Hypothesis to check first: \texttt{wezterm-term} (Terminal Emulation Core) does not depend on \texttt{portable-pty} (PTY), so A1's arrow from the Terminal Emulation Core to the PTY probably has no direct counterpart.
+\end{requirements}

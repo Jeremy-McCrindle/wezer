@@ -1,0 +1,36 @@
+\section{Concrete Architecture}
+\label{sec:concrete}
+
+\sectionnote{Owner: Aayan A. Kader. Target: 2.25 pages plus redrawn diagrams. Rubric: Detailed descriptions of the high-level concrete architecture as box-and-arrow diagram; Screenshots of Understand with readable fonts, edges and arrows, possibly redrawn; Good subsystem layouts.}
+
+\begin{requirements}
+  \item ``Great'' on these criteria means the architecture is at the right level, every component and dependency is discussed in terms of what it represents and why it is there, with a link to the reference architecture document on onQ, and the diagrams are carefully laid out and easy to compare with the conceptual architecture.
+  \item The breakdown lists ``+ redrawn use case/sequence diagrams'' for this section, while the sequence diagrams and the use case diagram belong to Section~\ref{sec:use-cases} (D'Artagnan). Agree with D'Artagnan who redraws which diagram. This outline assumes this section redraws the Understand dependency graph.
+\end{requirements}
+
+\subsection{Box-and-Arrow Diagram}
+\label{sec:concrete-diagram}
+
+\begin{requirements}
+  \item A screenshot of Understand's architecture dependency graph for the mapping in Section~\ref{sec:mapping}, exported at high resolution and cropped, with readable fonts and visible edges and arrows.
+  \item A redrawn version that keeps every box where it sits in the conceptual figure (Section~\ref{sec:revised-conceptual}), with no overlapping boxes and as few edge crossings as possible. Optionally label each edge with Understand's dependency count.
+  \item A legend for each figure, and text that walks the reader through it.
+  \item Stay at the subsystem level: no files, classes or functions in this diagram.
+\end{requirements}
+
+\subsection{Subsystems}
+\label{sec:concrete-subsystems}
+
+\begin{requirements}
+  \item For each concrete subsystem: what it represents (its crates and folders, from Section~\ref{sec:mapping}), its role in the running system, why it is there, its conceptual counterpart, and its counterpart in the reference architecture document on onQ, cited.
+  \item Name the key code elements that carry each role, for example \texttt{Mux}, \texttt{Domain} and \texttt{LocalPane} for the Multiplexer.
+  \item Name any subsystem with no conceptual counterpart, such as the shared protocol crate \texttt{codec} or a group of utility crates, and say how the analysis treats it.
+\end{requirements}
+
+\subsection{Dependencies}
+\label{sec:concrete-dependencies}
+
+\begin{requirements}
+  \item One table with a row per edge in the figure: from, to, what the dependency represents with one example from the code (file and function), and why it exists.
+  \item Mark each row as a convergence or divergence, and point to Section~\ref{sec:reflexion} for the explanation.
+\end{requirements}

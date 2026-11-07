@@ -1,0 +1,40 @@
+\section{Conceptual Architecture}
+\label{sec:conceptual}
+
+\sectionnote{Owner: Jeremy McCrindle. Target: 1.25 pages plus the box-and-arrow diagram. Rubric: Conceptual architecture breakdown is clearly referenced, including rationale for updating the architecture (compared to A1); Good subsystem layouts.}
+
+\begin{requirements}
+  \item ``Great'' on this criterion means about 10 components, each clearly discussed in terms of its role and rationale, and every change from A1 clearly motivated.
+  \item This section is the reference point for Sections~\ref{sec:derivation} to~\ref{sec:use-cases}: every later diagram reuses its component names and its box layout.
+\end{requirements}
+
+\subsection{Starting Point: The A1 Conceptual Architecture}
+\label{sec:a1-summary}
+
+\begin{requirements}
+  \item Summarize the A1 architecture in a few sentences and cite the A1 report: the GUI Front End, Multiplexer, Mux Client, SSH Client, Mux Server, Terminal Emulation Core, PTY and Configuration Engine, with the external SSH Server and Shell.
+  \item Say that A1 traced the SSH multiplexing path in depth, which is why A2 widens the architecture to the whole system.
+\end{requirements}
+
+\subsection{Changes Since A1 and Their Rationale}
+\label{sec:a1-changes}
+
+\begin{requirements}
+  \item One table listing every change: component kept, added, removed, renamed, split or merged, and dependency added, removed or reversed, each with its reason.
+  \item Justify each decision to keep, modify or replace an A1 component from documentation, the reference architecture document on onQ, or A1 marker feedback.
+  \item Do not change the conceptual architecture to absorb what Understand shows in the code. Those differences are the divergences that Sections~\ref{sec:reflexion} and~\ref{sec:subsystem} must explain.
+  \item Settle two points A1 left unclear. The A1 report submitted on October~9 left the Configuration Engine out of its figure; the revised figure in \texttt{a1-report/} adds it as a dashed box, and this counts as a change. A1's Use Case~1 uses session management and the Terminal Emulation Core for a local pane, while the A1 figure places them only on the server side. Decide where each belongs and show it.
+  \item Reach about 10 components that cover the whole system rather than the SSH path alone. Candidates the A1 text already describes inside the GUI Front End and Configuration Engine: a windowing and platform layer, a font and rendering subsystem, a Lua scripting and API layer, and the protocol the Mux Client and Mux Server exchange.
+\end{requirements}
+
+\subsection{Revised Conceptual Architecture}
+\label{sec:revised-conceptual}
+
+\begin{requirements}
+  \item One box-and-arrow figure of the revised conceptual architecture, with a legend for every box style, arrow style and frame. An arrow from A to B means A depends on B, as in A1.
+  \item Fix the layout now and share it with Aayan, Jasmine, Nigel and D'Artagnan. The concrete, reflexion and sequence diagrams keep every box in the same position so a reader can compare them side by side.
+  \item Keep external components (SSH Server, Shell, operating system) visibly separate from WezTerm's own.
+  \item One table with a row per component: name, role, the reason it exists, its counterpart in the reference architecture document on onQ (cited), and its change from A1.
+  \item One table with a row per dependency: what the dependency represents and why it is there.
+  \item Refer to the figure and both tables in the text.
+\end{requirements}

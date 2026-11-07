@@ -1,0 +1,37 @@
+\section{Second-Level Reflexion Analysis}
+\label{sec:subsystem}
+
+\sectionnote{Owner: Nigel Groen. Target: 2.75 pages. Rubric: Detailed explanations of the inner architecture of one subsystem and its interactions (both conceptual and concrete); Detailed reflexion analysis for chosen 2nd-level architecture.}
+
+\begin{requirements}
+  \item ``Great'' on the inner-architecture criterion means both the conceptual and the concrete architecture of the subsystem are clearly decomposed, with at least 4 sub-components. The rubric marks down a conceptual architecture given ``without much explanation (possibly identified after the fact)''.
+  \item ``Great'' on the reflexion criterion is the same as for Section~\ref{sec:reflexion}: a clear explanation and detailed discussion of each divergence, based on facts obtained from git.
+  \item Choose one subsystem and justify the choice in the text. A strong candidate is the Multiplexer (crate \texttt{mux}): both use cases pass through it, it joins the local and remote sides, and its source already separates into more than four parts: the \texttt{Mux} registry and its notifications (\texttt{lib.rs}), the \texttt{Domain} abstraction and \texttt{LocalDomain} (\texttt{domain.rs}), the SSH domain (\texttt{ssh.rs}), the local pane runtime (\texttt{localpane.rs}), the window, tab and pane model (\texttt{window.rs}, \texttt{tab.rs}, \texttt{pane.rs}) and tmux integration (\texttt{tmux*.rs}).
+  \item Name the chosen subsystem in the section heading.
+\end{requirements}
+
+\subsection{Conceptual Architecture of the Subsystem}
+\label{sec:subsystem-conceptual}
+
+\begin{requirements}
+  \item Derive it before mapping files in Understand, from the documentation (for the Multiplexer, the multiplexing pages and the \texttt{wezterm.mux} Lua API) and the subsystem's description in Section~\ref{sec:conceptual}. Say so in the text.
+  \item At least 4 sub-components, each with its responsibility, its role and the reason it exists.
+  \item One figure with a legend: the sub-components, their dependencies, and the top-level components they interact with, drawn outside the subsystem's frame.
+\end{requirements}
+
+\subsection{Concrete Architecture of the Subsystem}
+\label{sec:subsystem-concrete}
+
+\begin{requirements}
+  \item One table assigning the subsystem's files to the sub-components of Section~\ref{sec:subsystem-conceptual}, with the rule used for any file that was hard to place.
+  \item An Understand screenshot and a redrawn diagram in the same layout as the conceptual figure, both readable and with legends.
+  \item For each concrete sub-component: what it contains, what it is for, and its dependencies, including those that leave the subsystem.
+  \item Connect each concrete sub-component to its conceptual counterpart.
+\end{requirements}
+
+\subsection{Reflexion Analysis of the Subsystem}
+\label{sec:subsystem-reflexion}
+
+\begin{requirements}
+  \item The procedure of Section~\ref{sec:reflexion-procedure} and the level of detail of Section~\ref{sec:reflexion}, at this level: a reflexion figure or table, then each divergence with a representative code example, the git facts (commit hash, author, date, commit message or pull request) and the rationale, then the absences.
+\end{requirements}

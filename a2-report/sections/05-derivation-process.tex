@@ -1,0 +1,47 @@
+\section{Architecture Derivation Process}
+\label{sec:derivation}
+
+\sectionnote{Owner: Jeremy McCrindle. Target: 1 page, including the mapping table. Rubric: Architecture derivation process explained.}
+
+\begin{requirements}
+  \item ``Great'' on this criterion means the group went from (1) the possibly updated A1 conceptual architecture to (2) iteratively assigning code files and folders to the A1 components. Make the link between the two steps explicit; the rubric marks down a ``definite gap between A1 and A2''.
+  \item Explain how Understand was used to analyse the code and identify the architectural components.
+\end{requirements}
+
+\subsection{Tools and Setup}
+\label{sec:setup}
+
+\begin{requirements}
+  \item Name the Understand version, the WezTerm commit (\pinnedcommit), and the course-provided Understand project, and say how many analysis errors it reported on loading, if any.
+  \item Say that git facts come from a clone checked out at the same commit.
+\end{requirements}
+
+\subsection{Mapping Source Code to Conceptual Components}
+\label{sec:mapping}
+
+\begin{requirements}
+  \item Start from the components of Section~\ref{sec:revised-conceptual}: one architecture node in Understand per conceptual component, with the same names.
+  \item Describe the first pass, which assigns whole crates (top-level folders such as \texttt{wezterm-gui}, \texttt{mux}, \texttt{wezterm-client}, \texttt{wezterm-mux-server-impl}, \texttt{wezterm-ssh}, \texttt{term}, \texttt{pty}, \texttt{config}, \texttt{window}, \texttt{wezterm-font}, \texttt{codec}).
+  \item Describe the later passes, which move individual files that do not fit their crate's component, and state the rule used for each judgement call. Likely cases: \texttt{mux/src/ssh.rs}, \texttt{mux/src/localpane.rs} and the \texttt{tmux} files in \texttt{mux/src/}.
+  \item Say how many iterations there were, what changed between them, and how the group settled disagreements.
+  \item Say what was left out or grouped and why: tests, build scripts, vendored code under \texttt{deps/}, documentation, and small shared utility crates (for example \texttt{promise}, \texttt{filedescriptor}, \texttt{rangeset}).
+  \item One table: component, the crates and folders assigned to it, and notable individual files.
+\end{requirements}
+
+\subsection{Extracting the Concrete Dependencies}
+\label{sec:extracting}
+
+\begin{requirements}
+  \item Say how Understand produced the dependency graph for the mapping, which dependency kinds it counts (calls, uses, implements and so on), and any filtering applied.
+  \item Say how the graph was exported and handed to Section~\ref{sec:concrete} for redrawing.
+\end{requirements}
+
+\subsection{Reflexion Analysis Procedure}
+\label{sec:reflexion-procedure}
+
+\begin{requirements}
+  \item Agree this subsection with Jasmine and Nigel, since Sections~\ref{sec:reflexion} and~\ref{sec:subsystem} follow it and need not repeat it.
+  \item Define convergence, divergence and absence, and cite the course material on reflexion models.
+  \item Describe how each divergence was investigated: find a representative code dependency in Understand (file and function), then find when and why it was introduced in git (\texttt{git blame}, \texttt{git log -S}, \texttt{git log --follow}) and in the linked GitHub pull request or issue.
+  \item Say what was recorded for each divergence: commit hash, author, date, commit message or pull request, and the rationale it gives.
+\end{requirements}
