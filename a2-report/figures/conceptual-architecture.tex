@@ -1,0 +1,98 @@
+% Revised conceptual architecture of WezTerm (Section 4), draft 5.
+% Conventions follow the course: boxes are components, one-way arrows are dependencies
+% (UML slides 6-7); the client-server style is marked with a dashed client|server line and its
+% labels, as in the design-exercise answers (CISC322_04 slides 9 and 14); a legend explains
+% every symbol (project guidelines, Appendix A). Explanations live in the caption and text.
+% Layout grid: columns 3.6 cm apart, rows 2.4 cm apart. Later diagrams (concrete, reflexion)
+% keep every box at the same coordinates and change only edges and edge styles.
+% Arrow rule: A -> B means A depends on B. Comments give the dependency-table numbers.
+\begin{tikzpicture}[
+    comp/.style={draw, thick, rounded corners=3pt, fill=white, align=center,
+                 minimum width=2.8cm, minimum height=1cm, text width=2.6cm},
+    ext/.style={draw=black!55, dashed, rounded corners=8pt, fill=black!7, align=center,
+                minimum width=2.8cm, minimum height=1cm, text width=2.6cm, text=black!75},
+    dep/.style={-{Latex[length=2.4mm]}, thick},
+    cfgend/.style={dashed, thick, -{Latex[length=2.4mm]}},
+    boundary/.style={black!60, thick, dash pattern=on 7pt off 4pt},
+  ]
+
+  % ---------- external entities (on the outer edge) ----------
+  \node[ext] (user)   at (7.2, 0)      {User};
+  \node[ext] (os)     at (0, -2.4)     {Operating system (files, fonts)};
+  \node[ext] (winsys) at (14.4, -2.4)  {Window system and GPU driver};
+  \node[ext] (shell)  at (7.2, -9.8)   {Shell or child program};
+  \node[ext] (sshd)   at (16.6, -9.8)  {SSH Server (sshd)};
+
+  % ---------- components (11) ----------
+  \node[comp] (font)   at (3.6, -2.4)  {Font\\Subsystem};
+  \node[comp] (gui)    at (7.2, -2.4)  {GUI Front End};
+  \node[comp] (window) at (10.8, -2.4) {Window and\\Platform Layer};
+
+  \node[comp] (config) at (3.6, -4.8)  {Configuration\\and Lua Engine};
+  \node[comp, line width=1.4pt] (mux) at (7.2, -4.8) {Multiplexer};
+  \node[comp] (client) at (10.8, -4.8) {Mux Client};
+  \node[comp] (ssh)    at (14.4, -4.8) {SSH Client};
+
+  \node[comp] (term)   at (3.6, -7.2)  {Terminal\\Emulation Core};
+  \node[comp] (pty)    at (7.2, -7.2)  {PTY};
+
+  \node[comp] (proto)  at (14.0, -8.4) {Mux Protocol};
+  \node[comp] (server) at (10.8, -9.8) {Mux Server};
+
+  % ---------- client-server boundary (drawn behind the boxes) ----------
+  \begin{scope}[on background layer]
+    \draw[boundary] (9.6, -8.4) -- (19.2, -8.4);
+  \end{scope}
+  \node[font=\small\bfseries, anchor=south east] at (19.2, -8.4) {CLIENT};
+  \node[font=\small\bfseries, anchor=north east] at (19.2, -8.4) {SERVER};
+
+  % ---------- main flow: user interface, session, local panes ----------
+  \draw[dep] (user) -- (gui);                                               % E1
+  \draw[dep] (gui) -- (font);                                               % 3
+  \draw[dep] (gui) -- (window);                                             % 2
+  \draw[dep] (gui) -- (mux);                                                % 1
+  \draw[dep] (mux.south west) -- (term.north east);                         % 4
+  \draw[dep] (mux) -- (pty);                                                % 5
+  \draw[dep] (pty) -- (shell);                                              % E5
+
+  % ---------- remote panes: client side ----------
+  \draw[dep] ([yshift=2.5mm]mux.east) -- ([yshift=2.5mm]client.west);       % 6
+  \draw[dep] ([yshift=-2.5mm]client.west) -- ([yshift=-2.5mm]mux.east);     % 8
+  \draw[dep] (client) -- (ssh);                                             % 13
+  \draw[dep] (8.4, -4.3) -- (8.4, -3.6) -- (14.4, -3.6) -- (ssh.north);     % 7
+
+  % ---------- client-server ----------
+  \draw[dep] (client) -- (server);                                          % 9
+  \draw[dep] (12.0, -5.3) -- (12.0, -6.6) -- (14.0, -6.6) -- (proto.north);  % 10
+  \draw[dep] (server.east) -- (14.0, -9.8) -- (proto.south);                % 11
+  \draw[dep] (server.west) -- (9.0, -9.8) -- (9.0, -6.0) -- (8.4, -6.0) -- (8.4, -5.3); % 12
+  \draw[dep] (ssh.east) -- (16.6, -4.8) -- (sshd.north);                    % E7
+
+  % ---------- configuration and scripting ----------
+  \draw[cfgend] ([xshift=-3mm]gui.south west) -- ([xshift=-3mm]config.north east);  % 15
+  \draw[dep] ([xshift=3mm]config.north east) -- ([xshift=3mm]gui.south west);       % 18
+  \draw[cfgend] ([yshift=2.5mm]mux.west) -- ([yshift=2.5mm]config.east);    % 16
+  \draw[dep] ([yshift=-2.5mm]config.east) -- ([yshift=-2.5mm]mux.west);     % 17
+  \draw[cfgend] (font) -- (config);                                         % 19
+  \draw[cfgend] (term) -- (config);                                         % 20
+  % 21-23 (Mux Client, Mux Server and SSH Client read configuration) are not drawn; see caption.
+
+  % ---------- platform services ----------
+  \draw[dep] (window) -- (winsys);                                          % E3
+  \draw[dep] (font) -- (os);                                                % E4
+  \draw[dep] (config.west) -- (0, -4.8) -- (os.south);                      % E6
+
+  % ---------- legend ----------
+  \begin{scope}[shift={(9.6, 0.35)}, every node/.style={font=\small}]
+    \node[draw, thick, rounded corners=3pt, minimum width=1.0cm, minimum height=0.45cm] at (0.5, -0.25) {};
+    \node[anchor=west] at (1.15, -0.25) {Component (bold: Section 8 subsystem)};
+    \node[draw=black!55, dashed, fill=black!7, rounded corners=5pt, minimum width=1.0cm, minimum height=0.45cm] at (0.5, -0.85) {};
+    \node[anchor=west] at (1.15, -0.85) {External entity};
+    \draw[boundary] (4.6, -0.85) -- (5.6, -0.85);
+    \node[anchor=west] at (5.75, -0.85) {Client | server};
+    \draw[dep] (0, -1.45) -- (1.0, -1.45);
+    \node[anchor=west] at (1.15, -1.45) {A depends on B};
+    \draw[cfgend] (4.6, -1.45) -- (5.6, -1.45);
+    \node[anchor=west] at (5.75, -1.45) {Reads configuration};
+  \end{scope}
+\end{tikzpicture}
