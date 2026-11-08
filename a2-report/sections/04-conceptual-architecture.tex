@@ -3,38 +3,82 @@
 
 \sectionnote{Owner: Jeremy McCrindle. Target: 1.25 pages plus the box-and-arrow diagram. Rubric: Conceptual architecture breakdown is clearly referenced, including rationale for updating the architecture (compared to A1); Good subsystem layouts.}
 
-\begin{requirements}
-  \item ``Great'' on this criterion means about 10 components, each clearly discussed in terms of its role and rationale, and every change from A1 clearly motivated.
-  \item This section is the reference point for Sections~\ref{sec:derivation} to~\ref{sec:use-cases}: every later diagram reuses its component names and its box layout.
-\end{requirements}
-
-\subsection{Starting Point: The A1 Conceptual Architecture}
+\subsection{Starting Point: The Conceptual Architecture Report}
 \label{sec:a1-summary}
 
-\begin{requirements}
-  \item Summarize the A1 architecture in a few sentences and cite the A1 report: the GUI Front End, Multiplexer, Mux Client, SSH Client, Mux Server, Terminal Emulation Core, PTY and Configuration Engine, with the external SSH Server and Shell.
-  \item Say that A1 traced the SSH multiplexing path in depth, which is why A2 widens the architecture to the whole system.
-\end{requirements}
+Our conceptual architecture report~\cite{a1-report} described WezTerm through eight subsystems, identified by tracing SSH multiplexing use cases. The GUI Front End, Multiplexer, Mux Client and SSH Client ran on the local host, and the Mux Server, Terminal Emulation Core and PTY ran on the remote host. A Configuration Engine was described in the text but not drawn. The report said little about fonts, windowing or scripting, which every session uses, so this report extends the architecture to the whole system.
 
-\subsection{Changes Since A1 and Their Rationale}
+\subsection{Changes Since the Conceptual Architecture Report}
 \label{sec:a1-changes}
 
-\begin{requirements}
-  \item One table listing every change: component kept, added, removed, renamed, split or merged, and dependency added, removed or reversed, each with its reason.
-  \item Justify each decision to keep, modify or replace an A1 component from documentation, the reference architecture document on onQ, or A1 marker feedback.
-  \item Do not change the conceptual architecture to absorb what Understand shows in the code. Those differences are the divergences that Sections~\ref{sec:reflexion} and~\ref{sec:subsystem} must explain.
-  \item Settle two points A1 left unclear. The A1 report submitted on October~9 left the Configuration Engine out of its figure; the revised figure in \texttt{a1-report/} adds it as a dashed box, and this counts as a change. A1's Use Case~1 uses session management and the Terminal Emulation Core for a local pane, while the A1 figure places them only on the server side. Decide where each belongs and show it.
-  \item Reach about 10 components that cover the whole system rather than the SSH path alone. Candidates the A1 text already describes inside the GUI Front End and Configuration Engine: a windowing and platform layer, a font and rendering subsystem, a Lua scripting and API layer, and the protocol the Mux Client and Mux Server exchange.
-\end{requirements}
+Each change is based on WezTerm's documentation, the conceptual architecture reports of other groups, or inconsistencies in our own report. None is based on the source code, because differences from the code are the divergences analysed in Sections~\ref{sec:reflexion} and~\ref{sec:subsystem}. From group 22~\cite{g22-a1} we adopted font handling as a separate component and configuration as a component that scripts can call, and from group 13~\cite{g13-a1}, domains, which make local and remote panes behave alike. Table~\ref{tab:components} lists the change to each component; none was removed.
+
+\begin{figure}[!bt]
+  \centering
+  \begin{minipage}{0.85\linewidth}\diagram{conceptual-architecture.tex}\end{minipage}
+  \caption{Revised conceptual architecture of WezTerm. An arrow points from a component to the component it depends on, and dashed arrows are configuration reads. Below the client-server line, the server runs its own Multiplexer, Terminal Emulation Core and PTY, which are drawn once. For readability, the figure omits User $\rightarrow$ Mux Client (\texttt{wezterm cli}), GUI Front End $\rightarrow$ Mux Server and three configuration reads, all of which are listed in Table~\ref{tab:dependencies}.}
+  \label{fig:conceptual}
+\end{figure}
+
+The main dependency change concerns the PTY. Our earlier report showed the Terminal Emulation Core depending on the PTY~\cite{a1-report}. The Multiplexer now depends on it instead, since the domain that creates a pane also creates its PTY~\cite{what-is-a-terminal,multiplexing}, and all three other groups model it the same way~\cite{g7-a1,g13-a1,g22-a1}. The Terminal Emulation Core only reads and writes bytes, so the earlier arrow showed a flow of data, not a dependency. For the same reason, the Mux Server now depends on the Multiplexer instead of the Terminal Emulation Core.
+
+The revision also fixes two inconsistencies in our earlier report. The Configuration Engine was described but not drawn, and it is now drawn. The local-pane use case placed a Mux Server and Terminal Emulation Core on the local host, while the figure showed both only on the remote host. The revised figure has no host boundaries, since the same components serve local panes and run inside a remote Mux Server.
 
 \subsection{Revised Conceptual Architecture}
 \label{sec:revised-conceptual}
 
-\begin{requirements}
-  \item One box-and-arrow figure of the revised conceptual architecture, with a legend for every box style, arrow style and frame. An arrow from A to B means A depends on B, as in A1.
-  \item Fix the layout now and share it with Aayan, Jasmine, Nigel and D'Artagnan. The concrete, reflexion and sequence diagrams keep every box in the same position so a reader can compare them side by side.
-  \item Keep external components (SSH Server, Shell, operating system) visibly separate from WezTerm's own.
-  \item One table with a row per component: name, role, the reason it exists, its counterpart in the reference architecture document on onQ (cited), and its change from A1.
-  \item One table with a row per dependency: what the dependency represents and why it is there.
-  \item Refer to the figure and both tables in the text.
-\end{requirements}
+Figure~\ref{fig:conceptual} shows the 11 components and five external entities, with a local command following the centre column and the remote path on the right. The architecture keeps the two styles of our earlier report and adds a third~\cite{arch-styles}. In the client-server style, the Mux Client and SSH Client are clients of the Mux Server and SSH Server, and the Mux Protocol defines how the Mux Client and Mux Server communicate~\cite{multiplexing}. In the implicit invocation style, the GUI Front End and Multiplexer announce events, such as new output in a pane, to listeners they do not know~\cite{event-registration}, so the figure has no arrow from the Multiplexer to the GUI Front End. The new interpreter style covers the Configuration and Lua Engine, an embedded Lua 5.4 interpreter that runs the user's \texttt{wezterm.lua}~\cite{lua-reference}.
+
+Table~\ref{tab:components} compares each component with the web-browser reference architecture~\cite{refarch-browser}, the closest published one. Like a browser, a terminal parses marked-up content into a model, displays it and can be extended by scripts. WezTerm differs in reaching its content sources through the Multiplexer, the counterpart of the browser engine, and in having a server side. Table~\ref{tab:dependencies} explains each dependency. Dependencies 14 and 19 are inferred from the documentation.
+
+\begin{table}[!htbp]
+  \centering
+  \caption{Components of the revised conceptual architecture, with each component's change from the conceptual architecture report.}
+  \label{tab:components}
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.215\linewidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.23\linewidth}>{\raggedright\arraybackslash}p{0.15\linewidth}@{}}
+    \toprule
+    \textbf{Component} & \textbf{Role} & \textbf{Change} & \textbf{Browser counterpart} \\
+    \midrule
+    GUI Front End & Handles input and draws panes & Narrowed & User Interface \\
+    Window and Platform Layer & Provides native windows and events & New; was inside the GUI & Display Backend \\
+    Font Subsystem & Finds, shapes and rasterises fonts & New; split from the GUI & Display Backend \\
+    Multiplexer & Holds the sessions and creates panes & Now owns local panes & Browser Engine \\
+    Terminal Emulation Core & Parses each pane's bytes into a cell grid & Runs with every Multiplexer & Rendering Engine \\
+    PTY & Runs each program in a pseudo-terminal & Now also used locally & Networking \\
+    Configuration and Lua Engine & Runs \texttt{wezterm.lua} and its handlers & Renamed and now drawn & JavaScript Interpreter \\
+    Mux Client & Displays a Mux Server's panes locally & Widened beyond SSH & Networking \\
+    Mux Protocol & Defines the client-server messages & New; formerly implicit & Networking \\
+    Mux Server & Serves a Multiplexer's panes to clients & Serves its own Multiplexer & Web server \\
+    SSH Client & Built-in SSH client (libssh or libssh2) & Adds plain SSH domains & Networking \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{table}[!htbp]
+  \centering
+  \caption{Dependencies of the revised conceptual architecture. Dependencies 15, 16 and 19--23 are configuration reads.}
+  \label{tab:dependencies}
+  \footnotesize
+  \begin{tabularx}{\linewidth}{@{}l>{\raggedright\arraybackslash}p{0.53\linewidth}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    \textbf{\#} & \textbf{Dependency} & \textbf{Reason} \\
+    \midrule
+    1 & GUI Front End $\rightarrow$ Multiplexer & The GUI displays and controls the session \\
+    2, 3 & GUI Front End $\rightarrow$ Window and Platform Layer, Font Subsystem & The GUI draws text in native windows \\
+    4 & Multiplexer $\rightarrow$ Terminal Emulation Core & Pane output updates the terminal model \\
+    5 & Multiplexer $\rightarrow$ PTY & The local domain runs programs in PTYs \\
+    6, 7 & Multiplexer $\rightarrow$ Mux Client, SSH Client & Remote and SSH domains supply panes \\
+    8 & Mux Client $\rightarrow$ Multiplexer & The client registers remote panes \\
+    9 & Mux Client $\rightarrow$ Mux Server & The server owns the remote sessions \\
+    10, 11 & Mux Client, Mux Server $\rightarrow$ Mux Protocol & Both use the same message format \\
+    12 & Mux Server $\rightarrow$ Multiplexer & The server applies client requests \\
+    13 & Mux Client $\rightarrow$ SSH Client & SSH multiplexing domains use SSH \\
+    14 & GUI Front End $\rightarrow$ Mux Server & The GUI serves \texttt{wezterm cli} \\
+    15, 16 & GUI Front End, Multiplexer $\rightarrow$ Configuration and Lua Engine & Settings and Lua event handlers \\
+    17, 18 & Configuration and Lua Engine $\rightarrow$ Multiplexer, GUI Front End & Scripts call their Lua APIs \\
+    19--23 & Font Subsystem, Terminal Emulation Core, Mux Client, Mux Server, SSH Client $\rightarrow$ Configuration and Lua Engine & Each reads its settings, such as the colour palette \\
+    \bottomrule
+  \end{tabularx}
+\end{table}

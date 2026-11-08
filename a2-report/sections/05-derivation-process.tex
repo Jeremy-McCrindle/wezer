@@ -1,47 +1,53 @@
 \section{Architecture Derivation Process}
 \label{sec:derivation}
+% \depends{...}: a small inline marker for text that waits on another section. Delete each once resolved.
+\providecommand{\depends}[1]{{\small\itshape\guillemotleft depends on #1\guillemotright}}
 
 \sectionnote{Owner: Jeremy McCrindle. Target: 1 page, including the mapping table. Rubric: Architecture derivation process explained.}
 
-\begin{requirements}
-  \item ``Great'' on this criterion means the group went from (1) the possibly updated A1 conceptual architecture to (2) iteratively assigning code files and folders to the A1 components. Make the link between the two steps explicit; the rubric marks down a ``definite gap between A1 and A2''.
-  \item Explain how Understand was used to analyse the code and identify the architectural components.
-\end{requirements}
+Following the process taught in the course~\cite{reflexion-models} and used by Bowman et al.\ for Linux~\cite{linux-concrete}, we mapped every source file to a component of Section~\ref{sec:conceptual}, used Understand to aggregate the dependencies between components, and compared the result with the conceptual architecture.
 
 \subsection{Tools and Setup}
 \label{sec:setup}
 
-\begin{requirements}
-  \item Name the Understand version, the WezTerm commit (\pinnedcommit), and the course-provided Understand project, and say how many analysis errors it reported on loading, if any.
-  \item Say that git facts come from a clone checked out at the same commit.
-\end{requirements}
+We analysed WezTerm at commit \pinnedcommit{}~\cite{wezterm-repo} with SciTools Understand 8.0 (build 1266)~\cite{understand}. The course-provided Understand project could not complete its re-analysis on our machine, as it required more than 16~GB of memory, mainly for the vendored C libraries under \texttt{deps/}. We therefore analysed the 442 Rust files of the same commit in batches. The only errors, from one macro in the Terminal Emulation Core, affect no dependency between components. All git history was taken from a full clone at the same commit.
 
 \subsection{Mapping Source Code to Conceptual Components}
 \label{sec:mapping}
 
-\begin{requirements}
-  \item Start from the components of Section~\ref{sec:revised-conceptual}: one architecture node in Understand per conceptual component, with the same names.
-  \item Describe the first pass, which assigns whole crates (top-level folders such as \texttt{wezterm-gui}, \texttt{mux}, \texttt{wezterm-client}, \texttt{wezterm-mux-server-impl}, \texttt{wezterm-ssh}, \texttt{term}, \texttt{pty}, \texttt{config}, \texttt{window}, \texttt{wezterm-font}, \texttt{codec}).
-  \item Describe the later passes, which move individual files that do not fit their crate's component, and state the rule used for each judgement call. Likely cases: \texttt{mux/src/ssh.rs}, \texttt{mux/src/localpane.rs} and the \texttt{tmux} files in \texttt{mux/src/}.
-  \item Say how many iterations there were, what changed between them, and how the group settled disagreements.
-  \item Say what was left out or grouped and why: tests, build scripts, vendored code under \texttt{deps/}, documentation, and small shared utility crates (for example \texttt{promise}, \texttt{filedescriptor}, \texttt{rangeset}).
-  \item One table: component, the crates and folders assigned to it, and notable individual files.
-\end{requirements}
+We created one Understand architecture node for each component, using the same names, and two further nodes so that every file is assigned: Shared Utilities, for generic libraries that no component owns, and Excluded. The first pass assigned each of the 64 Cargo crates to the component whose responsibilities its description and main types implement. For example, \texttt{mux} went to the Multiplexer and \texttt{codec} to the Mux Protocol. The second pass moved four files whose main type belongs to a different component, including the domain set-up in \texttt{wezterm-mux-server-impl}, which went to the Multiplexer, and the \texttt{wezterm.gui} Lua module, which went to the Configuration and Lua Engine. A file was not moved because it used another component's types, since that use is a dependency. Generated code, tests, build scripts, vendored libraries and the shared launcher were excluded. Two later iterations corrected the analysis and left the mapping unchanged (Section~\ref{sec:extracting}). Table~\ref{tab:mapping} shows the final mapping.
+
+\begin{table}[!htbp]
+  \centering
+  \caption{Mapping of source code to components (lines of hand-written Rust).}
+  \label{tab:mapping}
+  \footnotesize
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.27\linewidth}>{\raggedright\arraybackslash}Xr@{}}
+    \toprule
+    \textbf{Component} & \textbf{Crates and folders} & \textbf{Lines} \\
+    \midrule
+    GUI Front End & \texttt{wezterm-gui}, \texttt{lfucache}, \texttt{frecency} & 37,830 \\
+    Window and Platform Layer & \texttt{window} & 22,464 \\
+    Font Subsystem & \texttt{wezterm-font} & 10,266 \\
+    Multiplexer & \texttt{mux}, \texttt{bintree}, \texttt{procinfo} & 13,571 \\
+    Terminal Emulation Core & \texttt{term}, \texttt{wezterm-escape-parser}, \texttt{vtparse} and 3 smaller crates & 28,966 \\
+    PTY & \texttt{pty} & 2,477 \\
+    Configuration and Lua Engine & \texttt{config}, \texttt{luahelper}, \texttt{lua-api-crates/} (15 crates) & 14,196 \\
+    Mux Client & \texttt{wezterm-client}, \texttt{ratelim}, \texttt{wezterm/src/cli/} & 6,304 \\
+    Mux Protocol & \texttt{codec} & 1,265 \\
+    Mux Server & \texttt{wezterm-mux-server}, \texttt{wezterm-mux-server-impl} & 2,200 \\
+    SSH Client & \texttt{wezterm-ssh} & 5,934 \\
+    Shared Utilities & \texttt{termwiz}, \texttt{promise}, \texttt{filedescriptor} and 13 smaller crates & 20,803 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
 \subsection{Extracting the Concrete Dependencies}
 \label{sec:extracting}
 
-\begin{requirements}
-  \item Say how Understand produced the dependency graph for the mapping, which dependency kinds it counts (calls, uses, implements and so on), and any filtering applied.
-  \item Say how the graph was exported and handed to Section~\ref{sec:concrete} for redrawing.
-\end{requirements}
+Understand aggregates file-level references, such as calls, type uses, imports and trait implementations, into dependencies between architecture nodes. We exported these through its Python API, giving 60 dependencies supported by 19,636 references. Two errors in Understand's Rust analysis assigned calls to \texttt{anyhow}'s \texttt{.context()}, and unqualified calls such as \texttt{eq}, to unrelated WezTerm code. Removing these 2,750 references removed seven false dependencies. The remaining dependencies match the crate graph from the \texttt{Cargo.toml} files in 38 cases, and each of the six differences is explained by a moved file or by a declared dependency that is never used. Section~\ref{sec:concrete} redraws the graph using the box positions of Figure~\ref{fig:conceptual}. \depends{Section~\ref{sec:concrete}}
 
 \subsection{Reflexion Analysis Procedure}
 \label{sec:reflexion-procedure}
 
-\begin{requirements}
-  \item Agree this subsection with Jasmine and Nigel, since Sections~\ref{sec:reflexion} and~\ref{sec:subsystem} follow it and need not repeat it.
-  \item Define convergence, divergence and absence, and cite the course material on reflexion models.
-  \item Describe how each divergence was investigated: find a representative code dependency in Understand (file and function), then find when and why it was introduced in git (\texttt{git blame}, \texttt{git log -S}, \texttt{git log --follow}) and in the linked GitHub pull request or issue.
-  \item Say what was recorded for each divergence: commit hash, author, date, commit message or pull request, and the rationale it gives.
-\end{requirements}
+Sections~\ref{sec:reflexion} and~\ref{sec:subsystem} classify each dependency as a convergence, which appears in both architectures, a divergence, which appears only in the concrete architecture, or an absence, which appears only in the conceptual architecture~\cite{reflexion-models}. For each divergence, we determined which code causes it, who introduced it, when, and why~\cite[slides 15--20]{reflexion-models}. We selected a representative reference in Understand, used \texttt{git blame} and \texttt{git log -S} (with \texttt{--follow}) to find the commit that introduced it, and read that commit and any linked pull request~\cite[slides 39--43]{reflexion-models}. For each absence, \texttt{git log -S} showed whether the dependency had ever existed. We recorded the reference, commit, author, date and stated rationale, and assessed whether the rationale justifies the dependency. Sections~\ref{sec:reflexion} and~\ref{sec:subsystem} explain \depends{Sections~\ref{sec:reflexion} and~\ref{sec:subsystem}: number} divergences, selected by \depends{Sections~\ref{sec:reflexion} and~\ref{sec:subsystem}: selection rule}.

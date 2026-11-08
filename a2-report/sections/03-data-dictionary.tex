@@ -18,9 +18,9 @@
   \item Add the code elements the report names, with their type (for example \texttt{Mux}, \texttt{Domain}, \texttt{LocalPane}, \texttt{ClientDomain}, \texttt{RemoteSshDomain}).
 \end{requirements}
 
-\begin{table}[H]
+\begin{table}[!htbp]
   \centering
-  \caption{Data dictionary.}
+  \caption{Data dictionary: components and external entities.}
   \label{tab:data-dictionary}
   \small
   \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.24\linewidth}X@{}}
@@ -28,21 +28,49 @@
     \textbf{Term} & \textbf{Type} & \textbf{Definition} \\
     \midrule
     GUI Front End & WezTerm subsystem & Displays terminal content and receives user input through graphical windows. \\
-    Multiplexer & WezTerm subsystem & Coordinates windows, tabs, panes, and domains, routing requests between the GUI Front End and the relevant local or remote session. \\
+    Window and Platform Layer & WezTerm subsystem & Opens native windows, delivers their events and sets up the graphics context on each OS. \\
+    Font Subsystem & WezTerm subsystem & Finds, shapes and rasterises fonts. \\
+    Multiplexer & WezTerm subsystem & Holds the session model of windows, tabs and panes, and creates panes through local and remote domains. It runs in every process that manages panes. \\
+    Terminal Emulation Core & WezTerm subsystem & Per-pane terminal state machine that parses output bytes into a cell grid and encodes keys. \\
+    PTY & WezTerm subsystem & Creates the pseudo-terminal, starts the program in it and carries its bytes. \\
+    Configuration and Lua Engine & WezTerm subsystem & Runs \texttt{wezterm.lua} in an embedded Lua interpreter and exposes WezTerm to scripts. Called the Configuration Engine in the conceptual architecture report. \\
     Mux Client & WezTerm subsystem & Manages connections between the local application and multiplexing domains, sending input and receiving pane updates; for remote SSH domains, it communicates with the remote Mux Server. \\
-    Mux Server & WezTerm subsystem & Headless WezTerm instance that manages remote session state, including windows, tabs, panes, and their programs. \\
-    Configuration Engine & WezTerm subsystem & Evaluates Lua configuration and supplies runtime settings, key bindings, themes, and event-handling support to the GUI Front End and Multiplexer. \\
-    SSH Client & WezTerm subsystem & Establishes the authenticated, encrypted SSH connection used to reach a remote Mux Server. \\
-    SSH Server & External system & The remote \texttt{sshd} service that accepts SSH connections and authenticates users. \\
-    Terminal Emulation Core & WezTerm subsystem & Interprets terminal output, including escape sequences, and updates a pane's logical screen state. \\
-    PTY & Operating-system interface & Pseudo-terminal interface that carries input and output bytes between WezTerm and a shell or other program. \\
+    Mux Protocol & WezTerm subsystem & The versioned message format the Mux Client and Mux Server exchange. \\
+    Mux Server & WezTerm subsystem & Exposes a Multiplexer to clients over the Mux Protocol and keeps panes alive after clients detach. \\
+    SSH Client & WezTerm subsystem & Built-in SSH implementation (libssh or libssh2) that opens shell or Mux Protocol channels. \\
+    User & External actor & The person using the GUI Front End or \texttt{wezterm cli}. \\
+    Operating system (files, fonts) & External system & Supplies font files, the font resolver and file watching. \\
+    Window system and GPU driver & External system & The platform window system and graphics driver. \\
     Shell & External program & Command-line program running in a PTY that receives commands and produces terminal output. \\
+    SSH Server & External system & The remote \texttt{sshd} service that accepts SSH connections and authenticates users. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{table}[!htbp]
+  \centering
+  \caption{Data dictionary: terms.}
+  \label{tab:data-dictionary-terms}
+  \small
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.24\linewidth}X@{}}
+    \toprule
+    \textbf{Term} & \textbf{Type} & \textbf{Definition} \\
+    \midrule
     Domain & Session/execution context & Determines where a pane's program runs; panes belong to a domain, which may be local or remote. \\
     SSH multiplexing domain & Remote domain type & SSH domain that connects to a remote Mux Server, allowing its panes to keep running independently of the local GUI connection. \\
     Pane & User-interface element & A terminal area within a tab. \\
     Tab & User-interface element & A group of one or more panes within a WezTerm window. \\
     Window & User-interface element & A top-level graphical window that can contain tabs and panes. \\
     predicted echo & Latency feature & A local prediction of typed input, displayed to reduce perceived delay during slower remote sessions. \\
+    Workspace & Session label & A label that groups windows. It is separate from the window hierarchy. \\
+    Client pane & Mux Client object & Local stand-in for a pane that lives in a Mux Server. \\
+    Plain SSH domain & Remote domain type & SSH domain that runs a shell without a Mux Server. Its panes close when the connection drops. \\
+    Reflexion model & Analysis method & A comparison of conceptual and concrete dependencies as convergences, divergences and absences. \\
+    Convergence & Reflexion result & A dependency in both the conceptual and the concrete architecture. \\
+    Divergence & Reflexion result & A dependency in the concrete architecture only. \\
+    Absence & Reflexion result & A dependency in the conceptual architecture only. \\
+    Crate & Rust unit & A Rust compilation unit; WezTerm is a Cargo workspace of 64 crates. \\
+    Shared Utilities & Mapping group & The mapping group for generic libraries that no component owns. It is not a component. \\
     \bottomrule
   \end{tabularx}
 \end{table}
@@ -69,13 +97,16 @@ To keep the report and diagrams consistent, we use the following naming conventi
     \textbf{Convention} & \textbf{Meaning} \\
     \midrule
     WezTerm & Always capitalize the product name as \textit{WezTerm}. \\
-    Component names & Use title case for \textit{GUI Front End}, \textit{Multiplexer}, \textit{Mux Client}, \textit{Mux Server}, \textit{SSH Client}, and \textit{Terminal Emulation Core}. \\
-    Mux & Use \textit{Mux} only in the names \textit{Mux Client} and \textit{Mux Server}; call the coordinating subsystem the \textit{Multiplexer}. \\
+    Component names & Use title case for the 11 components exactly as in Figure~\ref{fig:conceptual}: \textit{GUI Front End}, \textit{Window and Platform Layer}, \textit{Font Subsystem}, \textit{Multiplexer}, \textit{Terminal Emulation Core}, \textit{PTY}, \textit{Configuration and Lua Engine}, \textit{Mux Client}, \textit{Mux Protocol}, \textit{Mux Server}, and \textit{SSH Client}. \\
+    Mux & Use \textit{Mux} only in \textit{Mux Client}, \textit{Mux Protocol} and \textit{Mux Server}; call the session-managing subsystem the \textit{Multiplexer}. \\
     Abbreviations & Capitalize \textit{GUI} (Graphical User Interface), \textit{SSH} (Secure Shell), \textit{PTY} (pseudo-terminal), and \textit{OS} (Operating System). \\
     External participants & In sequence diagrams, mark non-WezTerm participants with the UML stereotype \texttt{\guillemotleft{}external\guillemotright{}}, as for the Shell and SSH Server. In prose, identify them as external when relevant. \\
     Generic interface terms & Keep \textit{window}, \textit{tab}, \textit{pane}, \textit{domain}, and \textit{session} lowercase except at the start of a sentence. \\
-    Dependency arrows & Solid arrows in the dependency diagram point from a component to a component it depends on; arrow labels state the dependency or flow. \\
+    Dependency arrows & In box-and-arrow diagrams, an arrow points from a component to a component it depends on. Solid arrows are dependencies; dashed arrows are configuration reads. Arrows are one-way. \\
     Sequence messages & Use concise, action-oriented lowercase labels, such as \textit{attach domain}, \textit{push changed lines}, and \textit{repaint changed lines}. Preserve capitalization for API or event identifiers such as \texttt{DetachDomain} and \texttt{PaneOutput}. \\
+    Code identifiers & Write crates, files and code elements in monospace exactly as in the source: crate names as in \texttt{Cargo.toml} (\texttt{wezterm-client}), paths relative to the repository root (\texttt{mux/src/ssh.rs}), and types (\texttt{ClientDomain}). \\
+    Components and code & To find a component's code, use the mapping table in Section~\ref{sec:derivation} (Table~\ref{tab:mapping}). \\
+    Client and server & In diagrams, the dashed horizontal line separates the client and server sides of the client-server style. \\
     \bottomrule
   \end{tabularx}
 \end{table}

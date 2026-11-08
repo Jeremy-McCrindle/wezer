@@ -1,4 +1,4 @@
-% Revised conceptual architecture of WezTerm (Section 4), draft 5.
+% Revised conceptual architecture of WezTerm (the Conceptual Architecture section), draft 5.
 % Conventions follow the course: boxes are components, one-way arrows are dependencies
 % (UML slides 6-7); the client-server style is marked with a dashed client|server line and its
 % labels, as in the design-exercise answers (CISC322_04 slides 9 and 14); a legend explains
@@ -85,7 +85,7 @@
   % ---------- legend ----------
   \begin{scope}[shift={(9.6, 0.35)}, every node/.style={font=\small}]
     \node[draw, thick, rounded corners=3pt, minimum width=1.0cm, minimum height=0.45cm] at (0.5, -0.25) {};
-    \node[anchor=west] at (1.15, -0.25) {Component (bold: Section 8 subsystem)};
+    \node[anchor=west] at (1.15, -0.25) {Component (bold: Section~\ref*{sec:subsystem} subsystem)};
     \node[draw=black!55, dashed, fill=black!7, rounded corners=5pt, minimum width=1.0cm, minimum height=0.45cm] at (0.5, -0.85) {};
     \node[anchor=west] at (1.15, -0.85) {External entity};
     \draw[boundary] (4.6, -0.85) -- (5.6, -0.85);
